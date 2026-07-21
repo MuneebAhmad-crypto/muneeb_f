@@ -12,7 +12,7 @@ class GKFlashCardsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "GK Flash Cards",
+      title: "GK Flash Card",
       home: const HomeScreen(),
     );
   }
