@@ -20,6 +20,6 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Screenshots
 
-![App](screenshots/app.JPEG)
+![App](screenshots/app.jpeg)
 
-![App](screenshots/history.JPEG)
+![App](screenshots/history.jpeg)
