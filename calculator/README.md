@@ -16,10 +16,10 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-# BMI calculator
+# Calculator
 
 ## Screenshots
 
-![App](screenshots/app.jpeg)
+![Main Screen](screenshots/app.png)
 
-![App](screenshots/history.jpeg)
+![History Screen](screenshots/history.png)
