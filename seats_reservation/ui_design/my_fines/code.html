@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SeatRes - My Fines</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#d8e3fb",
+                        "surface-dim": "#cfdaf2",
+                        "on-secondary": "#ffffff",
+                        "outline": "#737784",
+                        "on-primary-fixed-variant": "#00419c",
+                        "surface-container-high": "#dee8ff",
+                        "primary-container": "#0f52ba",
+                        "secondary-fixed": "#d3e4fe",
+                        "tertiary": "#3d4143",
+                        "surface-tint": "#1d59c1",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-secondary-fixed": "#0b1c30",
+                        "secondary": "#505f76",
+                        "background": "#f9f9ff",
+                        "inverse-surface": "#263143",
+                        "surface": "#f9f9ff",
+                        "primary-fixed": "#d9e2ff",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "tertiary-fixed": "#e0e3e5",
+                        "secondary-container": "#d0e1fb",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-surface-variant": "#434653",
+                        "surface-container-low": "#f0f3ff",
+                        "inverse-on-surface": "#ecf1ff",
+                        "outline-variant": "#c3c6d5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#54647a",
+                        "on-primary-fixed": "#001945",
+                        "surface-bright": "#f9f9ff",
+                        "inverse-primary": "#b0c6ff",
+                        "surface-variant": "#d8e3fb",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#e7eeff",
+                        "primary": "#003c90",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#bcceff",
+                        "tertiary-container": "#55585a",
+                        "on-surface": "#111c2d",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#111c2d",
+                        "on-tertiary-container": "#ccced0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "1.5rem",
+                        "margin-mobile": "1rem",
+                        "2xl": "3rem",
+                        "base": "4px",
+                        "md": "1rem",
+                        "sm": "0.5rem",
+                        "margin-desktop": "2.5rem",
+                        "xs": "0.25rem",
+                        "xl": "2rem",
+                        "gutter": "1rem"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "display": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar Semantic Shell: Destination Rule - Linear/Transactional -->
+<!-- Navigation Shell Suppressed as this is a specific task (viewing/paying fines) often accessed via profile/settings with a back button. -->
+<header class="bg-surface-bright w-full top-0 sticky shadow-none px-margin-mobile py-sm flex items-center justify-between border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200 rounded-full p-2 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary font-bold">My Fines</h1>
+</div>
+<!-- Trailing icon omitted per generic back-button header requirement, or could keep avatar if standard -->
+</header>
+<main class="flex-1 overflow-y-auto px-margin-mobile py-md pb-[5rem]">
+<!-- Total Balance Card -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-md mb-lg shadow-sm">
+<div class="flex flex-col items-center justify-center py-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant mb-xs">Total Balance Due</span>
+<span class="font-display text-display text-error">$20.00</span>
+</div>
+<button class="w-full bg-primary-container text-on-primary font-label-md text-label-md py-3 rounded-lg hover:bg-surface-tint transition-colors duration-200 mt-md">
+                Pay All
+            </button>
+</section>
+<!-- Fine History List -->
+<section>
+<h2 class="font-headline-md text-headline-md text-on-background mb-md">Fine History</h2>
+<div class="flex flex-col gap-sm">
+<!-- Unpaid Item -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-md flex items-center justify-between relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex flex-col pl-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-1">Oct 24, 2023</span>
+<span class="font-body-md text-body-md text-on-background">No-show for Seat A12</span>
+<span class="font-label-md text-label-md text-error mt-1">$10.00</span>
+</div>
+<button class="bg-transparent border border-primary-container text-primary-container font-label-sm text-label-sm px-4 py-2 rounded-lg hover:bg-surface-container-low transition-colors duration-200">
+                        Pay Now
+                    </button>
+</div>
+<!-- Unpaid Item -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-md flex items-center justify-between relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex flex-col pl-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-1">Oct 15, 2023</span>
+<span class="font-body-md text-body-md text-on-background">Late Return for Room 3B</span>
+<span class="font-label-md text-label-md text-error mt-1">$10.00</span>
+</div>
+<button class="bg-transparent border border-primary-container text-primary-container font-label-sm text-label-sm px-4 py-2 rounded-lg hover:bg-surface-container-low transition-colors duration-200">
+                        Pay Now
+                    </button>
+</div>
+<!-- Paid Item -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-md flex items-center justify-between relative overflow-hidden opacity-75">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-[#10b981]"></div>
+<div class="flex flex-col pl-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-1">Sep 02, 2023</span>
+<span class="font-body-md text-body-md text-on-background">No-show for Seat C4</span>
+<span class="font-label-md text-label-md text-on-surface-variant mt-1 line-through">$5.00</span>
+</div>
+<div class="bg-[#10b981]/10 text-[#059669] px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span>
+<span class="font-label-sm text-label-sm">Paid</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Secure Payment Methods (Mockup) -->
+<section class="mt-xl pt-lg border-t border-outline-variant">
+<h3 class="font-body-md text-body-md text-on-surface-variant mb-sm flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="lock">lock</span> Secure Payment
+             </h3>
+<div class="flex gap-sm">
+<div class="flex-1 bg-surface-container p-sm rounded-lg border border-outline-variant flex justify-center items-center h-12 cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="font-label-md text-label-md">Credit Card</span>
+</div>
+<div class="flex-1 bg-surface-container p-sm rounded-lg border border-outline-variant flex justify-center items-center h-12 cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="font-label-md text-label-md">Apple Pay</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Suppressed per Sub-page / Task-Focused intent. -->
+</body></html>

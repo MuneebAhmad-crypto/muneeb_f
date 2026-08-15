@@ -1,0 +1,1 @@
+MStore API - https://wordpress.org/plugins/mstore-api/ or download from Github - https://github.com/inspireui/mstore-api/releases/

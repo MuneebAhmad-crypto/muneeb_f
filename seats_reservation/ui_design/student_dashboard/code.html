@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Home - SeatRes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-high": "#dee8ff",
+                        "on-tertiary-container": "#ccced0",
+                        "on-surface-variant": "#434653",
+                        "surface-variant": "#d8e3fb",
+                        "on-background": "#111c2d",
+                        "inverse-primary": "#b0c6ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#191c1e",
+                        "inverse-surface": "#263143",
+                        "primary-fixed": "#d9e2ff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#3d4143",
+                        "inverse-on-surface": "#ecf1ff",
+                        "secondary-container": "#d0e1fb",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-secondary-container": "#54647a",
+                        "primary-container": "#0f52ba",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#111c2d",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#bcceff",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "background": "#f9f9ff",
+                        "tertiary-fixed": "#e0e3e5",
+                        "surface-container-low": "#f0f3ff",
+                        "outline-variant": "#c3c6d5",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface": "#f9f9ff",
+                        "secondary-fixed": "#d3e4fe",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "on-primary-fixed": "#001945",
+                        "surface-dim": "#cfdaf2",
+                        "primary": "#003c90",
+                        "surface-tint": "#1d59c1",
+                        "outline": "#737784",
+                        "surface-container-highest": "#d8e3fb",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "secondary": "#505f76",
+                        "on-primary-fixed-variant": "#00419c",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "surface-container": "#e7eeff",
+                        "tertiary-container": "#55585a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "1rem",
+                        "gutter": "1rem",
+                        "margin-desktop": "2.5rem",
+                        "lg": "1.5rem",
+                        "2xl": "3rem",
+                        "xs": "0.25rem",
+                        "xl": "2rem",
+                        "margin-mobile": "1rem",
+                        "base": "4px",
+                        "sm": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-20 md:pb-0 font-body-md flex flex-col items-center">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface-bright dark:bg-surface-dim z-40 border-b border-outline-variant dark:border-outline shadow-none">
+<div class="flex items-center justify-between px-margin-mobile py-sm w-full md:px-margin-desktop max-w-7xl mx-auto">
+<div class="flex items-center gap-sm">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A small, professional circular profile picture of a young university student in a bright, modern campus setting. Light mode aesthetic, sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo-M_baBsnOhMgA26jSnFPtJRntmnpLUT_qMeRZjYAjRANgqDKS87rh8n4m3geFR1MsTxIiEN5Yv8Fk0C_El0LMMKBJwXC2vXaKjRCj3vpjkYOSFR6pxv4TFhTZB9-oHkS4lbc8nkZ1X13Oul6SeGXIrhFLjhS_fkkf91uYElkR8OGzoUizvB3xWj2qtsDccA_X-IOxUOncfSJ0a0t7hbGn13kICTjEcqkYmu3yL3HrZAK09HINBMt_g"/>
+<span class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim font-bold">SeatRes</span>
+</div>
+<!-- Desktop Nav (Hidden on Mobile) -->
+<nav class="hidden md:flex items-center gap-lg">
+<a class="text-primary dark:text-primary-fixed-dim font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Home</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Map</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Bookings</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Profile</a>
+</nav>
+<button class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest p-2 rounded-full transition-colors duration-200 flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="w-full max-w-7xl px-margin-mobile md:px-margin-desktop py-lg md:py-2xl flex-1 grid grid-cols-1 md:grid-cols-12 gap-md md:gap-gutter">
+<!-- Welcome & Status Bento Cell -->
+<section class="col-span-1 md:col-span-8 bg-surface-container rounded-xl p-lg flex flex-col md:flex-row items-start md:items-center justify-between border border-outline-variant/30 gap-md">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-xs">Welcome back, Alex.</h1>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-outline" style="font-size: 20px;">info</span>
+<p class="font-body-md text-body-md">Status: <strong>No active reservation</strong></p>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-lg py-sm rounded-lg hover:bg-surface-tint transition-colors flex items-center gap-xs shadow-sm w-full md:w-auto justify-center">
+<span class="material-symbols-outlined" style="font-size: 20px;">bolt</span>
+                Quick Reserve
+            </button>
+</section>
+<!-- Upcoming Reminder Cell -->
+<section class="col-span-1 md:col-span-4 bg-surface-bright rounded-xl p-md border border-outline-variant flex flex-col justify-center">
+<h2 class="font-label-md text-label-md text-on-surface-variant mb-sm uppercase tracking-wider">Upcoming</h2>
+<div class="flex items-center gap-md">
+<div class="bg-surface-container-high rounded-lg p-sm flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">event</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-medium">Study Group Mtg</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tomorrow, 10:00 AM • Room 302</p>
+</div>
+</div>
+</section>
+<!-- Seat Availability Map/List -->
+<section class="col-span-1 md:col-span-12 mt-md">
+<div class="flex items-center justify-between mb-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">Main Library Floors</h2>
+<a class="text-primary font-label-md text-label-md flex items-center gap-xs hover:underline" href="#">
+                    View Full Map <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-md">
+<!-- Zone Card 1 -->
+<div class="bg-surface-bright border border-outline-variant rounded-xl p-md hover:border-primary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-sm">
+<div class="bg-surface-container-low p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">menu_book</span>
+</div>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-full">Quiet Zone</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Floor 1 - North</h3>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden mb-xs">
+<div class="bg-primary h-full w-1/3 rounded-full"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">12 / 45 seats available</p>
+</div>
+<!-- Zone Card 2 -->
+<div class="bg-surface-bright border border-outline-variant rounded-xl p-md hover:border-primary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-sm">
+<div class="bg-surface-container-low p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-full">Collab</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Floor 2 - Atrium</h3>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden mb-xs">
+<div class="bg-primary h-full w-3/4 rounded-full"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">4 / 20 seats available</p>
+</div>
+<!-- Zone Card 3 -->
+<div class="bg-surface-bright border border-outline-variant rounded-xl p-md hover:border-primary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-sm">
+<div class="bg-surface-container-low p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">computer</span>
+</div>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-full">Tech Lab</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Basement - Lab A</h3>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden mb-xs">
+<div class="bg-error h-full w-[95%] rounded-full"></div>
+</div>
+<p class="font-body-sm text-body-sm text-error">1 / 30 seats available (Almost Full)</p>
+</div>
+<!-- Zone Card 4 -->
+<div class="bg-surface-bright border border-outline-variant rounded-xl p-md hover:border-primary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-sm">
+<div class="bg-surface-container-low p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">local_cafe</span>
+</div>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-full">Casual</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Cafe Area</h3>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden mb-xs">
+<div class="bg-primary h-full w-1/2 rounded-full"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">15 / 30 seats available</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container dark:bg-inverse-surface border-t border-outline-variant dark:border-outline shadow-none">
+<div class="flex justify-around items-center h-16 w-full px-sm">
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 active:scale-95 transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined">event_seat</span>
+<span class="font-label-sm text-label-sm mt-1">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="font-label-sm text-label-sm mt-1">Bookings</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-1">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>

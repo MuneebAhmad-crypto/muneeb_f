@@ -1,0 +1,9 @@
+FluxStore: 6.2.0
+Flutter: 3.44.x
+Xcode: 26.x
+FluxBuilder: 2.5.0
+Mstore API: 4.20.0
+iOS: 15.0 (minimum deployment target)
+Android: 26 (Android 8.0, minimum SDK version), 35 (Android 15, target SDK version)
+Android Studio: 2024.2.1 (Lady Bug) or later
+JDK: 17

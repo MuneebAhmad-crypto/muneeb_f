@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StudyMate - GPA Calculator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#d6e4f9",
+                        "secondary": "#a04100",
+                        "secondary-container": "#fe6b00",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-fixed": "#001356",
+                        "primary-fixed-dim": "#b8c3ff",
+                        "primary": "#0040e0",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#3a4859",
+                        "on-background": "#191c1e",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#b8c3ff",
+                        "primary-fixed": "#dde1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#ffdbcc",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#0f1c2c",
+                        "outline-variant": "#c4c5d9",
+                        "tertiary-container": "#616e80",
+                        "primary-container": "#2e5bff",
+                        "on-tertiary-container": "#e8f1ff",
+                        "on-surface-variant": "#434656",
+                        "surface-container-high": "#e6e8ea",
+                        "on-secondary-container": "#572000",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb693",
+                        "surface-tint": "#124af0",
+                        "surface-container": "#eceef0",
+                        "surface": "#f7f9fb",
+                        "background": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#7a3000",
+                        "tertiary-fixed-dim": "#bac8dc",
+                        "on-primary-container": "#efefff",
+                        "tertiary": "#485667",
+                        "surface-bright": "#f7f9fb",
+                        "outline": "#747688",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#351000",
+                        "error": "#ba1a1a",
+                        "on-surface": "#191c1e",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-low": "#f2f4f6",
+                        "on-primary-fixed-variant": "#0035be"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "20px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "md": "24px",
+                        "xl": "48px",
+                        "container-max": "1200px",
+                        "lg": "32px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "headline-xl": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-lg-mobile": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased flex h-screen overflow-hidden">
+<!-- Desktop Navigation Drawer -->
+<nav class="hidden md:flex flex-col bg-surface shadow-xl h-full w-80 rounded-r-xl p-4 gap-2 flex-shrink-0 z-40">
+<!-- Header Profile -->
+<div class="flex items-center gap-4 p-2 mb-6">
+<img class="w-12 h-12 rounded-full object-cover shadow-sm bg-surface-container-highest" data-alt="A clean, modern portrait of a university student smiling slightly, well-lit against a minimalist studio background with soft natural lighting, conveying focus and calm academic ambition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0eN3r6raT-Rj60V92tr7my7yVa2YXHBjvsFx69Z_5ZKV73hb-KIIAX-8wTq-LGUAOSjCO6OGDS_X--xKWIoj92xfZRahbCXYLa0znkIsvVAvVvg7WXGCiDCpDof5NO4_USZEeIBvDh0sa8lDJhJrfNwbfLm6N9HLqL-3Z3OaGaBPchxYWtGAbONX2eDT2WLe8rpG9hgICBN519VMB9F8Kkw_koNs2oWVbngN90iPaXlsrOTaXpsI8RQ"/>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-primary">Alex Johnson</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Computer Science, Year 3</span>
+<span class="font-label-md text-label-md text-secondary">GPA: 3.8</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded-lg active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-body-md text-body-md">Notifications</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded-lg active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-body-md text-body-md">Timetable</span>
+</a>
+<!-- Active Tab -->
+<a class="flex items-center gap-3 p-3 bg-secondary-container text-on-secondary-container font-bold rounded-lg active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="calculate">calculate</span>
+<span class="font-body-md text-body-md">GPA Calculator</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded-lg active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-body-md text-body-md">Attendance</span>
+</a>
+<div class="my-2 border-t border-outline-variant opacity-50"></div>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded-lg active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded-lg active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-body-md text-body-md">Help &amp; Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex flex-col flex-1 h-full overflow-hidden relative">
+<!-- Mobile TopAppBar -->
+<header class="md:hidden flex items-center justify-between px-4 h-16 w-full sticky top-0 z-50 bg-surface shadow-sm">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-full active:scale-95 duration-100">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">StudyMate</h1>
+<div class="w-8 h-8 rounded-full overflow-hidden shadow-sm bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A small circular avatar of a student, clear and bright, fitting a modern app interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALJhdK9tgjbytxGXm99IPmF9paXoQHqizWNydZj_-WekM_TYH1UDN_IuJUbCSilhBkd_iYb_Z6n00YUAUnQaP2sWbNF4TZEqvFte-4bg0KZEbnXYI0Iv4mjOISvMoE-3RQ3XriA2vdzF8OK8MCU24GpnJjU9SZSkq8fokd3aYlrSufvfTSz37UlrkjrFWy810h-ngnU_ggUWD3ozte04gTWTZkrOTI3Hxol5F9gXhvMxFxNZnzqqKshA"/>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto pb-24 md:pb-8 pt-6 px-4 md:px-8">
+<div class="max-w-container-max mx-auto space-y-md">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-lg">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Semester Calculator</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-2xl">Enter your courses, credit hours, and expected grades to instantly project your semester GPA.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Calculator Form Area (Left) -->
+<div class="lg:col-span-8 flex flex-col gap-sm">
+<!-- Header Row -->
+<div class="hidden sm:grid grid-cols-12 gap-4 px-4 pb-2 border-b border-outline-variant text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<div class="col-span-5">Course Name</div>
+<div class="col-span-3">Credits</div>
+<div class="col-span-3">Grade</div>
+<div class="col-span-1 text-center">Act</div>
+</div>
+<!-- Dynamic Course List Container -->
+<div class="flex flex-col gap-3" id="course-list">
+<!-- Initial Course Row -->
+<div class="course-row bg-surface-container-lowest p-4 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-transparent hover:border-outline-variant transition-colors flex flex-col sm:grid sm:grid-cols-12 gap-4 items-center">
+<div class="w-full sm:col-span-5">
+<label class="sm:hidden font-label-md text-label-md text-on-surface-variant mb-1 block">Course Name</label>
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow" placeholder="e.g. MATH 101" type="text" value="Calculus I"/>
+</div>
+<div class="w-full sm:col-span-3">
+<label class="sm:hidden font-label-md text-label-md text-on-surface-variant mb-1 block">Credits</label>
+<input class="credit-input w-full bg-surface border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow text-center" min="0" step="0.5" type="number" value="4"/>
+</div>
+<div class="w-full sm:col-span-3">
+<label class="sm:hidden font-label-md text-label-md text-on-surface-variant mb-1 block">Grade</label>
+<div class="relative">
+<select class="grade-input w-full appearance-none bg-surface border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow pr-8">
+<option value="4.0">A  (4.0)</option>
+<option value="3.7">A- (3.7)</option>
+<option value="3.3">B+ (3.3)</option>
+<option value="3.0">B  (3.0)</option>
+<option value="2.7">B- (2.7)</option>
+<option value="2.3">C+ (2.3)</option>
+<option value="2.0">C  (2.0)</option>
+<option value="1.7">C- (1.7)</option>
+<option value="1.0">D  (1.0)</option>
+<option value="0.0">F  (0.0)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<div class="w-full sm:col-span-1 flex justify-center sm:justify-end">
+<button aria-label="Remove Course" class="delete-btn p-2 text-on-surface-variant hover:text-error hover:bg-error-container rounded-full transition-colors active:scale-95 disabled:opacity-50">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Initial Course Row 2 -->
+<div class="course-row bg-surface-container-lowest p-4 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-transparent hover:border-outline-variant transition-colors flex flex-col sm:grid sm:grid-cols-12 gap-4 items-center">
+<div class="w-full sm:col-span-5">
+<label class="sm:hidden font-label-md text-label-md text-on-surface-variant mb-1 block">Course Name</label>
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow" placeholder="e.g. MATH 101" type="text" value="Physics 201"/>
+</div>
+<div class="w-full sm:col-span-3">
+<label class="sm:hidden font-label-md text-label-md text-on-surface-variant mb-1 block">Credits</label>
+<input class="credit-input w-full bg-surface border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow text-center" min="0" step="0.5" type="number" value="3"/>
+</div>
+<div class="w-full sm:col-span-3">
+<label class="sm:hidden font-label-md text-label-md text-on-surface-variant mb-1 block">Grade</label>
+<div class="relative">
+<select class="grade-input w-full appearance-none bg-surface border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow pr-8">
+<option value="4.0">A  (4.0)</option>
+<option selected="" value="3.7">A- (3.7)</option>
+<option value="3.3">B+ (3.3)</option>
+<option value="3.0">B  (3.0)</option>
+<option value="2.7">B- (2.7)</option>
+<option value="2.3">C+ (2.3)</option>
+<option value="2.0">C  (2.0)</option>
+<option value="1.7">C- (1.7)</option>
+<option value="1.0">D  (1.0)</option>
+<option value="0.0">F  (0.0)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<div class="w-full sm:col-span-1 flex justify-center sm:justify-end">
+<button aria-label="Remove Course" class="delete-btn p-2 text-on-surface-variant hover:text-error hover:bg-error-container rounded-full transition-colors active:scale-95 disabled:opacity-50">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Add Course Action -->
+<div class="mt-4 flex justify-center sm:justify-start">
+<button class="flex items-center gap-2 px-6 py-3 bg-tertiary-fixed text-on-tertiary-fixed rounded-xl font-label-md text-label-md hover:bg-primary-fixed transition-colors active:scale-95" id="add-course-btn">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                                Add Course
+                            </button>
+</div>
+</div>
+<!-- Result Display Area (Right) -->
+<div class="lg:col-span-4 mt-8 lg:mt-0">
+<div class="sticky top-24 bg-surface-container-lowest rounded-xl p-6 shadow-[0_12px_32px_rgba(0,0,0,0.12)] border border-outline-variant/50 flex flex-col items-center text-center">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-2">Projected Semester GPA</span>
+<!-- Animated Value Display -->
+<div class="relative w-48 h-48 flex items-center justify-center my-4">
+<!-- Abstract decorative background for the score -->
+<div class="absolute inset-0 rounded-full border-8 border-surface-container bg-surface-bright shadow-inner"></div>
+<svg class="absolute inset-0 w-full h-full -rotate-90" viewbox="0 0 100 100">
+<circle class="text-primary transition-all duration-700 ease-out" cx="50" cy="50" fill="none" id="gpa-ring" r="46" stroke="currentColor" stroke-dasharray="289" stroke-dashoffset="50" stroke-width="8"></circle>
+</svg>
+<div class="z-10 flex flex-col items-center">
+<span class="font-headline-xl text-headline-xl font-bold text-on-surface" id="gpa-result">3.87</span>
+</div>
+</div>
+<div class="w-full flex justify-between px-4 py-3 bg-surface rounded-lg mt-4 border border-outline-variant/30">
+<div class="flex flex-col items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Total Credits</span>
+<span class="font-headline-md text-headline-md text-on-surface mt-1" id="total-credits">7.0</span>
+</div>
+<div class="w-px bg-outline-variant/50 h-full"></div>
+<div class="flex flex-col items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Quality Pts</span>
+<span class="font-headline-md text-headline-md text-on-surface mt-1" id="quality-points">27.1</span>
+</div>
+</div>
+<button class="mt-6 w-full py-3 bg-secondary-container text-on-secondary-container rounded-xl font-label-md text-label-md hover:brightness-110 transition-all active:scale-95 shadow-sm">
+                                Save to Dashboard
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile BottomNavBar -->
+<nav class="md:hidden flex justify-around items-center h-20 px-2 pb-safe w-full fixed bottom-0 z-50 bg-surface/80 backdrop-blur-md shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-label-md mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-md text-label-md mt-1">Academics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-label-md text-label-md mt-1">Study</span>
+</a>
+<!-- Active Tab -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="calculate">calculate</span>
+<span class="font-label-md text-label-md mt-1">Tools</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md mt-1">Profile</span>
+</a>
+</nav>
+</div>
+<!-- Interactive Script for Real-time Calculation -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const courseList = document.getElementById('course-list');
+            const addCourseBtn = document.getElementById('add-course-btn');
+            const gpaResultEl = document.getElementById('gpa-result');
+            const totalCreditsEl = document.getElementById('total-credits');
+            const qualityPointsEl = document.getElementById('quality-points');
+            const gpaRing = document.getElementById('gpa-ring');
+
+            const calculateGPA = () => {
+                let totalCredits = 0;
+                let totalQualityPoints = 0;
+
+                const rows = courseList.querySelectorAll('.course-row');
+                rows.forEach(row => {
+                    const credits = parseFloat(row.querySelector('.credit-input').value) || 0;
+                    const gradeStr = row.querySelector('.grade-input').value;
+                    const grade = parseFloat(gradeStr) || 0;
+
+                    totalCredits += credits;
+                    totalQualityPoints += (credits * grade);
+                });
+
+                const gpa = totalCredits > 0 ? (totalQualityPoints / totalCredits) : 0;
+                
+                // Update UI
+                gpaResultEl.textContent = gpa.toFixed(2);
+                totalCreditsEl.textContent = totalCredits.toFixed(1);
+                qualityPointsEl.textContent = totalQualityPoints.toFixed(1);
+
+                // Update Ring (Max GPA 4.0, Circle circumference ~289)
+                const percentage = gpa / 4.0;
+                const offset = 289 - (289 * percentage);
+                gpaRing.style.strokeDashoffset = offset;
+                
+                // Color change based on GPA
+                if(gpa >= 3.5) {
+                    gpaRing.className = "text-primary transition-all duration-700 ease-out";
+                } else if(gpa >= 2.5) {
+                    gpaRing.className = "text-secondary-container transition-all duration-700 ease-out";
+                } else {
+                    gpaRing.className = "text-error transition-all duration-700 ease-out";
+                }
+
+                // Manage delete button states
+                const deleteBtns = courseList.querySelectorAll('.delete-btn');
+                if(rows.length <= 1) {
+                    deleteBtns.forEach(btn => btn.disabled = true);
+                } else {
+                    deleteBtns.forEach(btn => btn.disabled = false);
+                }
+            };
+
+            const attachListeners = (row) => {
+                row.querySelector('.credit-input').addEventListener('input', calculateGPA);
+                row.querySelector('.grade-input').addEventListener('change', calculateGPA);
+                row.querySelector('.delete-btn').addEventListener('click', (e) => {
+                    if(courseList.querySelectorAll('.course-row').length > 1) {
+                        row.remove();
+                        calculateGPA();
+                    }
+                });
+            };
+
+            // Initial setup
+            courseList.querySelectorAll('.course-row').forEach(attachListeners);
+            calculateGPA();
+
+            // Add new course
+            addCourseBtn.addEventListener('click', () => {
+                const template = courseList.querySelector('.course-row').cloneNode(true);
+                template.querySelector('input[type="text"]').value = '';
+                template.querySelector('.credit-input').value = '3';
+                template.querySelector('.grade-input').value = '4.0';
+                
+                courseList.appendChild(template);
+                attachListeners(template);
+                calculateGPA();
+            });
+        });
+    </script>
+</body></html>

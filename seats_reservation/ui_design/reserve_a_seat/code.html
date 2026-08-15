@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SeatRes - Bookings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-high": "#dee8ff",
+                        "on-tertiary-container": "#ccced0",
+                        "on-surface-variant": "#434653",
+                        "surface-variant": "#d8e3fb",
+                        "on-background": "#111c2d",
+                        "inverse-primary": "#b0c6ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#191c1e",
+                        "inverse-surface": "#263143",
+                        "primary-fixed": "#d9e2ff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#3d4143",
+                        "inverse-on-surface": "#ecf1ff",
+                        "secondary-container": "#d0e1fb",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-secondary-container": "#54647a",
+                        "primary-container": "#0f52ba",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#111c2d",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#bcceff",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "background": "#f9f9ff",
+                        "tertiary-fixed": "#e0e3e5",
+                        "surface-container-low": "#f0f3ff",
+                        "outline-variant": "#c3c6d5",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface": "#f9f9ff",
+                        "secondary-fixed": "#d3e4fe",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "on-primary-fixed": "#001945",
+                        "surface-dim": "#cfdaf2",
+                        "primary": "#003c90",
+                        "surface-tint": "#1d59c1",
+                        "outline": "#737784",
+                        "surface-container-highest": "#d8e3fb",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "secondary": "#505f76",
+                        "on-primary-fixed-variant": "#00419c",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "surface-container": "#e7eeff",
+                        "tertiary-container": "#55585a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "1rem",
+                        "gutter": "1rem",
+                        "margin-desktop": "2.5rem",
+                        "lg": "1.5rem",
+                        "2xl": "3rem",
+                        "xs": "0.25rem",
+                        "xl": "2rem",
+                        "margin-mobile": "1rem",
+                        "base": "4px",
+                        "sm": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .seat-btn { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .seat-btn:hover:not(:disabled) { transform: scale(1.05); }
+        .seat-selected { box-shadow: 0 0 10px rgba(0, 60, 144, 0.5); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col pb-20 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface-bright dark:bg-surface-dim w-full top-0 sticky shadow-none border-b border-outline-variant dark:border-outline z-40 hidden md:block">
+<div class="flex items-center justify-between px-margin-mobile py-sm w-full h-16">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close up professional headshot of a smiling university student in a well-lit modern campus library setting. Soft natural light highlights their features, conveying a sense of academic focus and approachability in a light mode corporate environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_lq3pfeVSqwBHvJ5vTZr2yeIMe5GqupWUV6zTNck7RNoODT6ypXln2lRLMEAj-ESsTHSwCzmP5NIVKnbcQ8i_9T6mHmLYHF_rr0zn70FzbBHcZ18b0fziIxZzPisRJxi9s-GQw9DWovC5QEOGKXMRorkHWd_ZkEK4YtYOwQYNvaVZgEsHTPkpTWl99PA3kqYYM1i9fntM8rXFqD4IdXR6fKRzTGkjy2XXAfkQAiXcxJQx42EZFX7aWg"/>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim font-bold">SeatRes</h1>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Home</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Map</a>
+<a class="text-primary dark:text-primary-fixed-dim font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors duration-200 px-3 py-2 rounded-lg bg-surface-container-low" href="#">Bookings</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Profile</a>
+</nav>
+<button class="text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors duration-200 p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</div>
+</header>
+<!-- Mobile Header Fallback -->
+<header class="md:hidden bg-surface-bright border-b border-outline-variant flex items-center justify-between px-margin-mobile py-sm sticky top-0 z-40">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">SeatRes</h1>
+<button class="text-primary p-2">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-grow container mx-auto px-margin-mobile md:px-margin-desktop py-lg max-w-6xl flex flex-col lg:flex-row gap-lg">
+<!-- Left Column: Settings & Grid -->
+<div class="flex-1 flex flex-col gap-lg">
+<!-- Context Header -->
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Library Main Floor</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Select a seat to reserve for quiet study.</p>
+</div>
+<!-- Date/Time Selection -->
+<div class="bg-surface border border-outline-variant rounded-xl p-md flex flex-col sm:flex-row gap-md items-start sm:items-end">
+<div class="w-full sm:w-auto flex-1">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs">Date</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline">calendar_today</span>
+<input class="w-full pl-10 pr-3 py-2 bg-surface-bright border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary font-body-sm text-body-sm text-on-surface" type="date" value="2024-05-20"/>
+</div>
+</div>
+<div class="w-full sm:w-auto flex-1">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs">Time</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline">schedule</span>
+<select class="w-full pl-10 pr-8 py-2 bg-surface-bright border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary font-body-sm text-body-sm text-on-surface appearance-none">
+<option>09:00 AM</option>
+<option selected="">10:00 AM</option>
+<option>11:00 AM</option>
+<option>12:00 PM</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Notice -->
+<div class="bg-surface-container-low border-l-4 border-primary p-3 rounded-r-lg flex gap-3 items-start">
+<span class="material-symbols-outlined text-primary shrink-0">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Reservations made for 10:00 AM or earlier require check-in within 15 minutes of the start time, otherwise they will be released.
+                </p>
+</div>
+<!-- Seat Grid Area -->
+<div class="bg-surface border border-outline-variant rounded-xl p-md flex flex-col items-center">
+<!-- Legend -->
+<div class="flex gap-4 mb-6 font-label-sm text-label-sm text-on-surface-variant">
+<div class="flex items-center gap-1"><div class="w-4 h-4 rounded border border-[#22c55e] bg-[#f0fdf4]"></div> Available</div>
+<div class="flex items-center gap-1"><div class="w-4 h-4 rounded bg-surface-container-high border border-outline-variant"></div> Occupied</div>
+<div class="flex items-center gap-1"><div class="w-4 h-4 rounded bg-primary text-on-primary border border-primary"></div> Selected</div>
+</div>
+<!-- Abstract Map Container -->
+<div class="relative w-full max-w-lg aspect-[4/3] bg-surface-container-lowest border border-surface-container-highest rounded-lg p-6 overflow-x-auto custom-scrollbar">
+<!-- Decor: Room layout lines -->
+<div class="absolute inset-0 border-2 border-surface-container m-4 rounded-lg pointer-events-none border-dashed opacity-50"></div>
+<div class="absolute top-8 left-1/2 -translate-x-1/2 px-4 py-1 bg-surface-container-high rounded text-xs text-on-surface-variant font-label-sm">Entrance</div>
+<!-- Seat Grid implementation -->
+<div class="mt-12 flex flex-col gap-8 min-w-[300px]">
+<!-- Row A -->
+<div class="flex justify-center gap-4">
+<button class="seat-btn w-12 h-12 rounded bg-[#f0fdf4] border border-[#22c55e] flex items-center justify-center font-label-sm text-label-sm text-on-surface hover:bg-[#dcfce7]">A1</button>
+<button class="seat-btn w-12 h-12 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center font-label-sm text-label-sm text-outline cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+<div class="w-8"></div> <!-- Aisle -->
+<button class="seat-btn w-12 h-12 rounded bg-[#f0fdf4] border border-[#22c55e] flex items-center justify-center font-label-sm text-label-sm text-on-surface hover:bg-[#dcfce7]">A3</button>
+<button class="seat-btn w-12 h-12 rounded bg-[#f0fdf4] border border-[#22c55e] flex items-center justify-center font-label-sm text-label-sm text-on-surface hover:bg-[#dcfce7]">A4</button>
+</div>
+<!-- Row B -->
+<div class="flex justify-center gap-4">
+<button class="seat-btn w-12 h-12 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center font-label-sm text-label-sm text-outline cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+<button class="seat-btn w-12 h-12 rounded bg-[#f0fdf4] border border-[#22c55e] flex items-center justify-center font-label-sm text-label-sm text-on-surface hover:bg-[#dcfce7]">B2</button>
+<div class="w-8"></div> <!-- Aisle -->
+<button class="seat-btn w-12 h-12 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center font-label-sm text-label-sm text-outline cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+<button class="seat-btn w-12 h-12 rounded bg-[#f0fdf4] border border-[#22c55e] flex items-center justify-center font-label-sm text-label-sm text-on-surface hover:bg-[#dcfce7]">B4</button>
+</div>
+<!-- Row C -->
+<div class="flex justify-center gap-4">
+<button class="seat-btn w-12 h-12 rounded bg-[#f0fdf4] border border-[#22c55e] flex items-center justify-center font-label-sm text-label-sm text-on-surface hover:bg-[#dcfce7]">C10</button>
+<button class="seat-btn w-12 h-12 rounded bg-[#f0fdf4] border border-[#22c55e] flex items-center justify-center font-label-sm text-label-sm text-on-surface hover:bg-[#dcfce7]">C11</button>
+<div class="w-8"></div> <!-- Aisle -->
+<button class="seat-btn seat-selected w-12 h-12 rounded bg-primary text-on-primary border border-primary flex items-center justify-center font-label-sm text-label-sm font-bold">C12</button>
+<button class="seat-btn w-12 h-12 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center font-label-sm text-label-sm text-outline cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Summary Panel -->
+<div class="w-full lg:w-80 shrink-0 mt-lg lg:mt-0">
+<div class="bg-surface border border-outline-variant rounded-xl p-md sticky top-24">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md">Reservation Summary</h3>
+<div class="space-y-4 mb-6">
+<div class="flex justify-between items-center py-2 border-b border-surface-container-highest">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Location</span>
+<span class="font-label-md text-label-md text-on-surface">Library Main</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-surface-container-highest">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Date</span>
+<span class="font-label-md text-label-md text-on-surface">May 20, 2024</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-surface-container-highest">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Time</span>
+<span class="font-label-md text-label-md text-on-surface">10:00 AM</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-surface-container-highest bg-primary-fixed/20 -mx-2 px-2 rounded">
+<span class="font-body-sm text-body-sm text-primary-container font-semibold">Selected Seat</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">C12</span>
+</div>
+</div>
+<div class="bg-error-container/30 border border-error-container rounded-lg p-3 mb-6 flex gap-2">
+<span class="material-symbols-outlined text-error text-sm">warning</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface font-semibold">Check-in Required</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Must check in by 10:15 AM</p>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md py-3 px-4 rounded-lg transition-colors shadow-sm flex justify-center items-center gap-2">
+                    Confirm Reservation
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="w-full mt-2 bg-transparent text-secondary hover:bg-surface-container-low font-label-md text-label-md py-2 px-4 rounded-lg transition-colors">
+                    Cancel
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden bg-surface-container dark:bg-inverse-surface border-t border-outline-variant dark:border-outline shadow-none fixed bottom-0 w-full z-50">
+<div class="flex justify-around items-center h-16 w-full px-sm">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">event_seat</span>
+<span class="font-label-sm text-label-sm mt-1">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
+<span class="font-label-sm text-label-sm mt-1">Bookings</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-sm text-label-sm mt-1">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>

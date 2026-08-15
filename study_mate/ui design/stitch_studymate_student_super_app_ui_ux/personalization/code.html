@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StudyMate - Personalization</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#d6e4f9",
+                        "secondary": "#a04100",
+                        "secondary-container": "#fe6b00",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-fixed": "#001356",
+                        "primary-fixed-dim": "#b8c3ff",
+                        "primary": "#0040e0",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#3a4859",
+                        "on-background": "#191c1e",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#b8c3ff",
+                        "primary-fixed": "#dde1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#ffdbcc",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#0f1c2c",
+                        "outline-variant": "#c4c5d9",
+                        "tertiary-container": "#616e80",
+                        "primary-container": "#2e5bff",
+                        "on-tertiary-container": "#e8f1ff",
+                        "on-surface-variant": "#434656",
+                        "surface-container-high": "#e6e8ea",
+                        "on-secondary-container": "#572000",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb693",
+                        "surface-tint": "#124af0",
+                        "surface-container": "#eceef0",
+                        "surface": "#f7f9fb",
+                        "background": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#7a3000",
+                        "tertiary-fixed-dim": "#bac8dc",
+                        "on-primary-container": "#efefff",
+                        "tertiary": "#485667",
+                        "surface-bright": "#f7f9fb",
+                        "outline": "#747688",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#351000",
+                        "error": "#ba1a1a",
+                        "on-surface": "#191c1e",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-low": "#f2f4f6",
+                        "on-primary-fixed-variant": "#0035be"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "20px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "md": "24px",
+                        "xl": "48px",
+                        "container-max": "1200px",
+                        "lg": "32px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "headline-xl": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-lg-mobile": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Hide scrollbar for clean UI */
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased">
+<!-- Progress Indicator -->
+<div class="w-full pt-8 px-4 md:px-8 max-w-[800px] mx-auto">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Step 3 of 3</span>
+<span class="font-label-md text-label-md text-primary font-bold">Personalization</span>
+</div>
+<div class="h-2 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-full rounded-full transition-all duration-500 ease-out"></div>
+</div>
+</div>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col w-full max-w-[800px] mx-auto px-4 md:px-8 py-8">
+<!-- Header -->
+<div class="mb-10 text-center md:text-left">
+<h1 class="font-headline-xl text-headline-xl text-on-background mb-3">Tailor Your Experience</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                Let's customize StudyMate to fit your unique learning style and schedule. You can always adjust these later.
+            </p>
+</div>
+<div class="flex-1 space-y-12">
+<!-- Main Study Goals (Bento Selection) -->
+<section>
+<h2 class="font-headline-md text-headline-md text-on-background mb-4">Main Study Goals</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Goal Card 1 -->
+<div class="selectable-card group relative bg-surface border-2 border-outline-variant rounded-xl p-6 cursor-pointer transition-all duration-200 hover:border-primary-fixed hover:bg-surface-container-low" data-selected="false">
+<div class="absolute top-4 right-4 w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center transition-colors group-[[data-selected=true]]:bg-primary group-[[data-selected=true]]:border-primary">
+<span class="material-symbols-outlined text-[16px] text-on-primary opacity-0 group-[[data-selected=true]]:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="w-12 h-12 rounded-lg bg-tertiary-fixed flex items-center justify-center mb-4 text-primary">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface mb-2">Improve GPA</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Focus on core subjects and assignment tracking.</p>
+</div>
+<!-- Goal Card 2 -->
+<div class="selectable-card group relative bg-surface border-2 border-outline-variant rounded-xl p-6 cursor-pointer transition-all duration-200 hover:border-primary-fixed hover:bg-surface-container-low" data-selected="false">
+<div class="absolute top-4 right-4 w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center transition-colors group-[[data-selected=true]]:bg-primary group-[[data-selected=true]]:border-primary">
+<span class="material-symbols-outlined text-[16px] text-on-primary opacity-0 group-[[data-selected=true]]:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="w-12 h-12 rounded-lg bg-tertiary-fixed flex items-center justify-center mb-4 text-primary">
+<span class="material-symbols-outlined text-3xl">psychology</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface mb-2">Deep Learning</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Master complex concepts with spaced repetition.</p>
+</div>
+<!-- Goal Card 3 -->
+<div class="selectable-card group relative bg-surface border-2 border-outline-variant rounded-xl p-6 cursor-pointer transition-all duration-200 hover:border-primary-fixed hover:bg-surface-container-low" data-selected="false">
+<div class="absolute top-4 right-4 w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center transition-colors group-[[data-selected=true]]:bg-primary group-[[data-selected=true]]:border-primary">
+<span class="material-symbols-outlined text-[16px] text-on-primary opacity-0 group-[[data-selected=true]]:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="w-12 h-12 rounded-lg bg-tertiary-fixed flex items-center justify-center mb-4 text-primary">
+<span class="material-symbols-outlined text-3xl">timer</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface mb-2">Time Management</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Build better routines and avoid procrastination.</p>
+</div>
+<!-- Goal Card 4 -->
+<div class="selectable-card group relative bg-surface border-2 border-outline-variant rounded-xl p-6 cursor-pointer transition-all duration-200 hover:border-primary-fixed hover:bg-surface-container-low" data-selected="false">
+<div class="absolute top-4 right-4 w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center transition-colors group-[[data-selected=true]]:bg-primary group-[[data-selected=true]]:border-primary">
+<span class="material-symbols-outlined text-[16px] text-on-primary opacity-0 group-[[data-selected=true]]:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="w-12 h-12 rounded-lg bg-tertiary-fixed flex items-center justify-center mb-4 text-primary">
+<span class="material-symbols-outlined text-3xl">group</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface mb-2">Group Study</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Collaborate easily with peers and study groups.</p>
+</div>
+</div>
+</section>
+<!-- Preferred Time Slots (Chips) -->
+<section>
+<h2 class="font-headline-md text-headline-md text-on-background mb-4">Preferred Study Times</h2>
+<div class="flex flex-wrap gap-3">
+<button class="time-chip font-body-md text-body-md px-5 py-2.5 rounded-full border border-outline-variant bg-surface text-on-surface transition-colors hover:bg-surface-container focus:outline-none" data-selected="false">Early Morning (5am - 8am)</button>
+<button class="time-chip font-body-md text-body-md px-5 py-2.5 rounded-full border border-outline-variant bg-surface text-on-surface transition-colors hover:bg-surface-container focus:outline-none" data-selected="false">Morning (8am - 12pm)</button>
+<button class="time-chip font-body-md text-body-md px-5 py-2.5 rounded-full border border-outline-variant bg-surface text-on-surface transition-colors hover:bg-surface-container focus:outline-none" data-selected="false">Afternoon (12pm - 5pm)</button>
+<button class="time-chip font-body-md text-body-md px-5 py-2.5 rounded-full border border-outline-variant bg-surface text-on-surface transition-colors hover:bg-surface-container focus:outline-none" data-selected="false">Evening (5pm - 9pm)</button>
+<button class="time-chip font-body-md text-body-md px-5 py-2.5 rounded-full border border-outline-variant bg-surface text-on-surface transition-colors hover:bg-surface-container focus:outline-none" data-selected="false">Night Owl (9pm - 2am)</button>
+</div>
+</section>
+<!-- Notifications Toggle -->
+<section>
+<div class="bg-surface rounded-xl p-6 flex items-center justify-between shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-surface-variant">
+<div>
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface">Study Reminders</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Get gentle nudges for upcoming study sessions.</p>
+</div>
+<!-- Custom Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-14 h-7 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</section>
+</div>
+<!-- Footer Action -->
+<div class="mt-12 pt-6 border-t border-outline-variant/30">
+<button class="w-full sm:w-auto sm:min-w-[200px] sm:float-right bg-secondary-container text-on-secondary-container font-headline-md text-headline-md py-4 px-8 rounded-xl hover:opacity-90 transition-opacity shadow-[0_4px_20px_rgba(0,0,0,0.05)] active:scale-[0.98]">
+                Finish Setup
+            </button>
+<div class="clear-both"></div>
+</div>
+</main>
+<script>
+        // Simple interaction logic for selection cards
+        document.querySelectorAll('.selectable-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const isSelected = card.getAttribute('data-selected') === 'true';
+                card.setAttribute('data-selected', !isSelected);
+                
+                // Toggle classes for visual state
+                if (!isSelected) {
+                    card.classList.replace('border-outline-variant', 'border-primary');
+                    card.classList.replace('bg-surface', 'bg-primary-fixed/20');
+                } else {
+                    card.classList.replace('border-primary', 'border-outline-variant');
+                    card.classList.replace('bg-primary-fixed/20', 'bg-surface');
+                }
+            });
+        });
+
+        // Simple interaction logic for time chips
+        document.querySelectorAll('.time-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const isSelected = chip.getAttribute('data-selected') === 'true';
+                chip.setAttribute('data-selected', !isSelected);
+                
+                if (!isSelected) {
+                    chip.classList.replace('bg-surface', 'bg-primary-container');
+                    chip.classList.replace('text-on-surface', 'text-on-primary-container');
+                    chip.classList.replace('border-outline-variant', 'border-primary-container');
+                } else {
+                    chip.classList.replace('bg-primary-container', 'bg-surface');
+                    chip.classList.replace('text-on-primary-container', 'text-on-surface');
+                    chip.classList.replace('border-primary-container', 'border-outline-variant');
+                }
+            });
+        });
+    </script>
+</body></html>

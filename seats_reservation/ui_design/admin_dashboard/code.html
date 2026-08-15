@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Dashboard - SeatRes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#f9f9ff",
+                      "surface-container-high": "#dee8ff",
+                      "on-tertiary-container": "#ccced0",
+                      "on-surface-variant": "#434653",
+                      "surface-variant": "#d8e3fb",
+                      "on-background": "#111c2d",
+                      "inverse-primary": "#b0c6ff",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed": "#191c1e",
+                      "inverse-surface": "#263143",
+                      "primary-fixed": "#d9e2ff",
+                      "on-tertiary": "#ffffff",
+                      "tertiary": "#3d4143",
+                      "inverse-on-surface": "#ecf1ff",
+                      "secondary-container": "#d0e1fb",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "on-secondary-container": "#54647a",
+                      "primary-container": "#0f52ba",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#111c2d",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#bcceff",
+                      "error-container": "#ffdad6",
+                      "on-error": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "background": "#f9f9ff",
+                      "tertiary-fixed": "#e0e3e5",
+                      "surface-container-low": "#f0f3ff",
+                      "outline-variant": "#c3c6d5",
+                      "on-secondary-fixed-variant": "#38485d",
+                      "surface": "#f9f9ff",
+                      "secondary-fixed": "#d3e4fe",
+                      "primary-fixed-dim": "#b0c6ff",
+                      "on-primary-fixed": "#001945",
+                      "surface-dim": "#cfdaf2",
+                      "primary": "#003c90",
+                      "surface-tint": "#1d59c1",
+                      "outline": "#737784",
+                      "surface-container-highest": "#d8e3fb",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-fixed": "#0b1c30",
+                      "secondary": "#505f76",
+                      "on-primary-fixed-variant": "#00419c",
+                      "secondary-fixed-dim": "#b7c8e1",
+                      "surface-container": "#e7eeff",
+                      "tertiary-container": "#55585a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "1rem",
+                      "gutter": "1rem",
+                      "margin-desktop": "2.5rem",
+                      "lg": "1.5rem",
+                      "2xl": "3rem",
+                      "xs": "0.25rem",
+                      "xl": "2rem",
+                      "margin-mobile": "1rem",
+                      "base": "4px",
+                      "sm": "0.5rem"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "display": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-20 md:pb-0">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface-bright dark:bg-surface-dim shadow-none transition-colors duration-200 z-40 hidden md:flex">
+<div class="flex items-center justify-between px-margin-desktop py-sm w-full">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate administrator in a modern office setting. Bright, clear lighting with a neutral gray background. The person looks approachable and confident, wearing business casual attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAirPGXInxmtwLIc6j5qf6EGVsvPp03yrqbqrDV6hSXWNgn_R2gqm1MtBQNlHZ_UjsFwSEIObfhDnTNmUJOq9qSuzRvtaEgM8mootOjYDG3vRfC4unvxmNGbUZMQ1Pwdv6OWLZ3QtiZdwDtcxdXkHJaZnFiMXJooSiLXQlZYim1hwaDJezOLelua4Gg7_gXqLIo749UVrFlYTgCXCpDOTgwB3UnQ4lyAgaCw_yJH_gFNY64STLQRHfUHA"/>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim font-bold">SeatRes Admin</h1>
+</div>
+<nav class="hidden md:flex gap-8">
+<a class="text-primary dark:text-primary-fixed-dim font-label-md text-label-md flex items-center gap-2 hover:bg-surface-container-low px-4 py-2 rounded-full transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+                    Home
+                </a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md flex items-center gap-2 hover:bg-surface-container-low px-4 py-2 rounded-full transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">event_seat</span>
+                    Map
+                </a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md flex items-center gap-2 hover:bg-surface-container-low px-4 py-2 rounded-full transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">confirmation_number</span>
+                    Bookings
+                </a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md flex items-center gap-2 hover:bg-surface-container-low px-4 py-2 rounded-full transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+                    Profile
+                </a>
+</nav>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container-low flex items-center justify-center text-on-surface-variant transition-colors duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<!-- Mobile TopAppBar -->
+<header class="w-full top-0 sticky bg-surface-bright dark:bg-surface-dim shadow-none transition-colors duration-200 z-40 md:hidden flex items-center justify-between px-margin-mobile py-sm">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate administrator in a modern office setting. Bright, clear lighting with a neutral gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyxEBpL6xRT_6OdLV_v7a9LuKO5eCDzc7XwWCth9PApaiugtVocFG3-NF0xf6n0Gd1T99h8a8aAoEhqTKpsAXu3au-nooiMbvd3gSjVRFuWDFZHHmeI4nVuGN26u16qu7CZt6PA6AJYfAc9QFL904qa_xiGAcZWuU1givgwmp4aQ069VCOEEY3APhb6yqFOiniLTMOyzY341KDIJRlIJ8NeNii7ztC3cPh2LQ5S1BwqBslP9DGb-gLDw"/>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim font-bold">SeatRes</h1>
+</div>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container-low flex items-center justify-center text-on-surface-variant transition-colors duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-lg">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-lg">Dashboard Overview</h2>
+<!-- Key Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md mb-xl">
+<!-- Total Seats -->
+<div class="bg-surface border border-outline-variant rounded-xl p-lg flex flex-col justify-between">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Seats</span>
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">view_module</span>
+</div>
+</div>
+<div>
+<span class="font-display text-display text-on-background">50</span>
+</div>
+</div>
+<!-- Reserved Seats -->
+<div class="bg-surface border border-outline-variant rounded-xl p-lg flex flex-col justify-between">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Reserved</span>
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined">event_busy</span>
+</div>
+</div>
+<div class="flex items-end gap-2">
+<span class="font-display text-display text-on-background">32</span>
+<span class="font-body-sm text-body-sm text-error mb-2">64% Capacity</span>
+</div>
+</div>
+<!-- Available Seats -->
+<div class="bg-surface border border-outline-variant rounded-xl p-lg flex flex-col justify-between">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Available</span>
+<div class="w-10 h-10 rounded-full bg-[#dcfce7] flex items-center justify-center text-[#166534]">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+</div>
+<div class="flex items-end gap-2">
+<span class="font-display text-display text-on-background">18</span>
+<span class="font-body-sm text-body-sm text-[#166534] mb-2">Ready</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Main Content Area (2 cols on large screens) -->
+<div class="lg:col-span-2 space-y-md">
+<!-- Recent Registrations -->
+<section class="bg-surface border border-outline-variant rounded-xl overflow-hidden">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<h3 class="font-headline-md text-headline-md text-on-background">Pending Approvals</h3>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="divide-y divide-outline-variant">
+<!-- Student Item 1 -->
+<div class="p-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:bg-surface-container-low transition-colors duration-150">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold font-headline-md text-headline-md">
+                                    AS
+                                </div>
+<div>
+<h4 class="font-label-md text-label-md text-on-background">Alex Smith</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Computer Science - 2nd Year</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Requested Seat: A12</p>
+</div>
+</div>
+<div class="flex gap-2 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none bg-surface border border-[#dc2626] text-[#dc2626] font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-error-container transition-colors duration-200">Reject</button>
+<button class="flex-1 sm:flex-none bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-surface-tint transition-colors duration-200">Approve</button>
+</div>
+</div>
+<!-- Student Item 2 -->
+<div class="p-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:bg-surface-container-low transition-colors duration-150">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold font-headline-md text-headline-md">
+                                    MJ
+                                </div>
+<div>
+<h4 class="font-label-md text-label-md text-on-background">Maria Johnson</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Engineering - 1st Year</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Requested Seat: B04</p>
+</div>
+</div>
+<div class="flex gap-2 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none bg-surface border border-[#dc2626] text-[#dc2626] font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-error-container transition-colors duration-200">Reject</button>
+<button class="flex-1 sm:flex-none bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-surface-tint transition-colors duration-200">Approve</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Daily Summary Chart Mockup -->
+<section class="bg-surface border border-outline-variant rounded-xl p-lg">
+<h3 class="font-headline-md text-headline-md text-on-background mb-md">Daily Arrivals Summary</h3>
+<div class="w-full h-64 bg-surface-container-low rounded-lg relative overflow-hidden border border-outline-variant flex items-end px-4 gap-2 pb-4">
+<!-- Simple bar chart visualization -->
+<div class="flex-1 bg-primary-fixed-dim rounded-t-sm h-[20%] hover:bg-primary transition-colors relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100">8am</div>
+</div>
+<div class="flex-1 bg-primary-fixed-dim rounded-t-sm h-[40%] hover:bg-primary transition-colors relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100">9am</div>
+</div>
+<div class="flex-1 bg-primary rounded-t-sm h-[85%] relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100">10am</div>
+</div>
+<div class="flex-1 bg-primary-fixed-dim rounded-t-sm h-[60%] hover:bg-primary transition-colors relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100">11am</div>
+</div>
+<div class="flex-1 bg-primary-fixed-dim rounded-t-sm h-[30%] hover:bg-primary transition-colors relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100">12pm</div>
+</div>
+<div class="flex-1 bg-primary-fixed-dim rounded-t-sm h-[45%] hover:bg-primary transition-colors relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100">1pm</div>
+</div>
+<div class="flex-1 bg-primary-fixed-dim rounded-t-sm h-[25%] hover:bg-primary transition-colors relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100">2pm</div>
+</div>
+</div>
+<div class="flex justify-between mt-2 font-label-sm text-label-sm text-on-surface-variant">
+<span>8 AM</span>
+<span>12 PM</span>
+<span>4 PM</span>
+</div>
+</section>
+</div>
+<!-- Sidebar -->
+<div class="space-y-md">
+<!-- Quick Links -->
+<section class="bg-surface border border-outline-variant rounded-xl p-lg">
+<h3 class="font-headline-md text-headline-md text-on-background mb-md">Quick Actions</h3>
+<a class="group flex items-center justify-between p-md bg-surface-container-low hover:bg-surface-container rounded-lg transition-colors duration-200 border border-transparent hover:border-outline-variant mb-3" href="#">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined">tune</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-background">Seat Management</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Adjust availability &amp; blocks</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+</a>
+<a class="group flex items-center justify-between p-md bg-surface-container-low hover:bg-surface-container rounded-lg transition-colors duration-200 border border-transparent hover:border-outline-variant" href="#">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-background">User Roster</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Manage accounts</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+</a>
+</section>
+<!-- System Status -->
+<section class="bg-surface border border-outline-variant rounded-xl p-lg">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-md">System Status</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-[#16a34a]"></div>
+<span class="font-body-md text-body-md text-on-background">Booking Engine</span>
+</div>
+<span class="font-label-sm text-label-sm text-[#16a34a] bg-[#dcfce7] px-2 py-1 rounded-full">Operational</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-[#16a34a]"></div>
+<span class="font-body-md text-body-md text-on-background">Notification Service</span>
+</div>
+<span class="font-label-sm text-label-sm text-[#16a34a] bg-[#dcfce7] px-2 py-1 rounded-full">Operational</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container dark:bg-inverse-surface shadow-none flex justify-around items-center h-16 px-sm pb-safe">
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">event_seat</span>
+<span class="font-label-sm text-label-sm mt-1">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="font-label-sm text-label-sm mt-1">Bookings</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

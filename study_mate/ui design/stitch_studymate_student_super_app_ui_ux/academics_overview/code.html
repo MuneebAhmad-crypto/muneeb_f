@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academics - StudyMate</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#d6e4f9",
+                        "secondary": "#a04100",
+                        "secondary-container": "#fe6b00",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-fixed": "#001356",
+                        "primary-fixed-dim": "#b8c3ff",
+                        "primary": "#0040e0",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#3a4859",
+                        "on-background": "#191c1e",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#b8c3ff",
+                        "primary-fixed": "#dde1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#ffdbcc",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#0f1c2c",
+                        "outline-variant": "#c4c5d9",
+                        "tertiary-container": "#616e80",
+                        "primary-container": "#2e5bff",
+                        "on-tertiary-container": "#e8f1ff",
+                        "on-surface-variant": "#434656",
+                        "surface-container-high": "#e6e8ea",
+                        "on-secondary-container": "#572000",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb693",
+                        "surface-tint": "#124af0",
+                        "surface-container": "#eceef0",
+                        "surface": "#f7f9fb",
+                        "background": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#7a3000",
+                        "tertiary-fixed-dim": "#bac8dc",
+                        "on-primary-container": "#efefff",
+                        "tertiary": "#485667",
+                        "surface-bright": "#f7f9fb",
+                        "outline": "#747688",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#351000",
+                        "error": "#ba1a1a",
+                        "on-surface": "#191c1e",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-low": "#f2f4f6",
+                        "on-primary-fixed-variant": "#0035be"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "20px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "md": "24px",
+                        "xl": "48px",
+                        "container-max": "1200px",
+                        "lg": "32px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom Scrollbar for a cleaner look */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #d8dadc; border-radius: 20px; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md h-screen overflow-hidden flex flex-col md:flex-row antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- NavigationDrawer (Desktop/Tablet) -->
+<aside class="hidden md:flex flex-col p-4 gap-2 h-full w-80 rounded-r-xl bg-surface dark:bg-surface-container shadow-xl z-40 relative flex-shrink-0">
+<!-- Header -->
+<div class="flex items-center gap-4 p-4 mb-6">
+<img alt="Alex Johnson" class="w-12 h-12 rounded-full object-cover shadow-sm border border-outline-variant/20" data-alt="A professional, modern headshot of a college student in a brightly lit studio with a soft, minimalist blue background. The student has a confident, scholarly expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZMyZM4XGwbLgZxYaiyrW32xG852q_oWauLmdPpxHxyWvcriRt6C-SD5qDwGEHxcYUmuXmjFWBbbMK1CNAyiBksIEEll7GYRRCBMKanssiZ1xdjArbHbNlD_-POdr4hNTtQYwfniVXPDUkvd0_-PWAemhn2TZcRINQqeRHsqu4cK6Uv_JpMciyj7wm9ftC9Py_Ry8L08ID8xFIQUR0K30cO7ipIarrFivpa9J1D-J5GnEsQkQX-Wa7rQ"/>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim">Alex Johnson</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Computer Science, Year 3</p>
+<span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md">GPA: 3.8</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 flex flex-col gap-2">
+<!-- Simulated Nav Items based on JSON -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-surface-container-highest transition-colors active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-body-md">Home</span>
+</a>
+<!-- Active State: Academics -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container font-bold rounded-lg hover:bg-surface-container-highest transition-colors active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-weight="fill">school</span>
+<span class="font-body-md">Academics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-surface-container-highest transition-colors active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-body-md">Study</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-surface-container-highest transition-colors active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">calculate</span>
+<span class="font-body-md">Tools</span>
+</a>
+<div class="my-4 border-t border-outline-variant/30"></div>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-surface-container-highest transition-colors active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-50 bg-surface dark:bg-surface-dim shadow-sm flex items-center justify-between px-4 h-16 w-full md:hidden">
+<button class="p-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-100 rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim tracking-tight">StudyMate</h1>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/50 cursor-pointer">
+<img alt="Student Profile Avatar" class="w-full h-full object-cover" data-alt="A professional, modern headshot of a college student in a brightly lit studio with a soft, minimalist blue background. The student has a confident, scholarly expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqFTw43ASKqYLmxqrFOqrGgfKX419OgJ5oo-qtYdiH_Upc_CCB4o3rsbNgwRf-nm3X2Xl2Q11Heez0JXSe4Z8zGsEGduTBiyQzEjt3IfYCYRjiBm7MBaUsJkqQ04RYQEGpPyv_H3P5VulkgHtkwhPjOWcwNg_ABO_2RYcRsZaXPhYnjzW1tFTILjkBk-2xKDs22ayrLjJXjvtLR3BaIFpYlf02oPKoBVHnsCxPJrnxX642F9lSZMRlhQ"/>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto pb-[100px] md:pb-8 pt-4 md:pt-8 px-4 md:px-8">
+<div class="max-w-container-max mx-auto w-full flex flex-col gap-6 md:gap-8">
+<!-- Page Header -->
+<div class="flex flex-col gap-1">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Academics</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your courses, schedule, and academic progress.</p>
+</div>
+<!-- Semester Overview (Hero Card) -->
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-outline-variant/20 relative overflow-hidden flex flex-col gap-4">
+<!-- Subtle decorative background element -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-fixed/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+<div class="flex justify-between items-end relative z-10">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Spring 2024 Semester</h2>
+<p class="font-body-sm text-body-sm text-tertiary">Week 8 of 15 • Midterms Approaching</p>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-headline-md text-primary">53%</span>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Completed</p>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-2 rounded-full bg-surface-variant overflow-hidden relative z-10 mt-2">
+<div class="h-full bg-primary rounded-full transition-all duration-1000 ease-out w-[53%] relative">
+<!-- Shimmer effect on progress bar -->
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout for Academic Modules -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+<!-- Courses (Large Card) -->
+<a class="md:col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-outline-variant/20 group hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-shadow duration-300 flex flex-col" href="#">
+<div class="flex justify-between items-center mb-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">book</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-xl">Current Courses</h3>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+<div class="flex flex-col gap-3 flex-1">
+<!-- Course Item 1 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface hover:bg-surface-container-low transition-colors border border-outline-variant/10">
+<div class="flex flex-col">
+<span class="font-body-md font-semibold text-on-surface">Data Structures &amp; Algorithms</span>
+<span class="font-label-md text-label-md text-on-surface-variant">CS 301 • 4 Credits</span>
+</div>
+<div class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-md text-label-md">A-</div>
+</div>
+<!-- Course Item 2 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface hover:bg-surface-container-low transition-colors border border-outline-variant/10">
+<div class="flex flex-col">
+<span class="font-body-md font-semibold text-on-surface">Modern World History</span>
+<span class="font-label-md text-label-md text-on-surface-variant">HIST 205 • 3 Credits</span>
+</div>
+<div class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-md text-label-md">B+</div>
+</div>
+</div>
+</a>
+<!-- Timetable (Accent Card) -->
+<a class="md:col-span-6 lg:col-span-4 bg-primary text-on-primary rounded-xl p-5 shadow-[0_4px_20px_rgba(0,64,224,0.2)] flex flex-col justify-between group overflow-hidden relative" href="#">
+<!-- Decorative circle -->
+<div class="absolute -bottom-6 -right-6 w-32 h-32 bg-white/10 rounded-full blur-xl group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex justify-between items-start relative z-10">
+<h3 class="font-headline-md text-headline-md text-xl">Up Next</h3>
+<span class="material-symbols-outlined bg-white/20 p-1.5 rounded-full backdrop-blur-sm">calendar_month</span>
+</div>
+<div class="mt-8 relative z-10">
+<p class="font-label-md text-label-md text-primary-fixed uppercase tracking-wider mb-1">Today, 2:00 PM</p>
+<p class="font-headline-md text-headline-md font-bold leading-tight">Software Engineering Lab</p>
+<div class="flex items-center gap-1 mt-2 text-primary-fixed-dim">
+<span class="material-symbols-outlined" style="font-size: 16px;">location_on</span>
+<span class="font-body-sm text-body-sm">Room 402, Engineering Bldg</span>
+</div>
+</div>
+</a>
+<!-- Assignments (Warning/Action Card) -->
+<a class="md:col-span-6 lg:col-span-4 bg-secondary-container text-on-secondary-container rounded-xl p-5 shadow-[0_4px_20px_rgba(254,107,0,0.15)] flex flex-col justify-between group" href="#">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-xl">Assignments</h3>
+<span class="material-symbols-outlined text-secondary">assignment</span>
+</div>
+<div class="mt-6 flex items-end gap-3">
+<span class="font-headline-xl text-headline-xl text-secondary font-bold leading-none">3</span>
+<span class="font-body-sm text-body-sm text-on-secondary-container/80 pb-1">Due this week</span>
+</div>
+<p class="font-label-md text-label-md mt-4 text-secondary uppercase font-semibold">View all tasks →</p>
+</a>
+<!-- Exams (Alert Card) -->
+<a class="md:col-span-6 lg:col-span-4 bg-surface-container-lowest rounded-xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-error/20 flex flex-col justify-between group" href="#">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-xl text-on-surface">Exams</h3>
+<span class="material-symbols-outlined text-error">quiz</span>
+</div>
+<div class="mt-6">
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-1">Next exam in</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-xl text-headline-xl text-error font-bold leading-none">12</span>
+<span class="font-body-md text-body-md text-error/80">days</span>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">CS 301 Midterm</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Oct 24</span>
+</div>
+</a>
+<!-- Attendance (Info Card) -->
+<a class="md:col-span-12 lg:col-span-4 bg-tertiary-fixed/30 rounded-xl p-5 shadow-sm border border-tertiary-fixed flex items-center justify-between group hover:bg-tertiary-fixed/50 transition-colors" href="#">
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-tertiary text-sm">fact_check</span>
+<h3 class="font-headline-md text-headline-md text-lg text-on-surface">Attendance</h3>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Overall average</span>
+</div>
+<!-- Simple CSS Circular Progress representation -->
+<div class="relative w-16 h-16 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-variant" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="92, 100" stroke-width="3"></path>
+</svg>
+<span class="absolute font-label-md text-label-md font-bold text-primary">92%</span>
+</div>
+</a>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 border-t border-outline-variant/20 shadow-none backdrop-blur-md flex justify-around items-center h-20 px-2 pb-safe w-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform flex-1" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-md text-label-md text-[10px]">Home</span>
+</a>
+<!-- Active State -->
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-xl px-4 py-1.5 active:scale-90 transition-transform flex-1 mx-1 shadow-sm" href="#">
+<span class="material-symbols-outlined" data-weight="fill">school</span>
+<span class="font-label-md text-label-md text-[10px] mt-0.5 font-bold">Academics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform flex-1" href="#">
+<span class="material-symbols-outlined mb-1">menu_book</span>
+<span class="font-label-md text-label-md text-[10px]">Study</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform flex-1" href="#">
+<span class="material-symbols-outlined mb-1">calculate</span>
+<span class="font-label-md text-label-md text-[10px]">Tools</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform flex-1" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-md text-label-md text-[10px]">Profile</span>
+</a>
+</nav>
+<!-- Safe area padding block for mobile devices with home indicators -->
+<div class="h-safe md:hidden bg-surface/80 backdrop-blur-md"></div>
+</div>
+<style>
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        /* iOS Safe Area Utilities fallback if plugin doesn't catch it */
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+            .h-safe { height: env(safe-area-inset-bottom); }
+        }
+    </style>
+</body></html>
