@@ -19,13 +19,13 @@ class Exam {
 
   factory Exam.fromJson(Map<String, dynamic> json) {
     return Exam(
-      id: json['id'],
-      title: json['title'],
-      courseId: json['course_id'],
-      dateTime: DateTime.parse(json['date_time']),
-      room: json['room'],
-      notes: json['notes'],
-      courseName: json['sm_courses']?['name'],
+      id: json['id']?.toString() ?? '',
+      title: json['title']?.toString() ?? 'Untitled',
+      courseId: json['course_id']?.toString() ?? '',
+      dateTime: DateTime.parse(json['date_time'] ?? DateTime.now().toIso8601String()),
+      room: json['room']?.toString(),
+      notes: json['notes']?.toString(),
+      courseName: json['sm_courses']?['name']?.toString(),
     );
   }
 

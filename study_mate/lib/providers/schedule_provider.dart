@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 import 'package:study_mate/models/schedule.dart';
 import 'package:study_mate/core/services/supabase_service.dart';
 
 class ScheduleProvider extends ChangeNotifier {
   final SupabaseService _supabaseService = SupabaseService();
+  final Uuid _uuid = const Uuid();
   List<Schedule> _schedules = [];
   bool _isLoading = false;
 
@@ -12,10 +14,20 @@ class ScheduleProvider extends ChangeNotifier {
 
   Future<void> fetchSchedules() async {
     _isLoading = true;
-    notifyListeners();
+    
+    // 1. Load from cache
     try {
-      final response = await _supabaseService.client.from('sm_class_schedules').select('*, sm_courses(name, code)');
-      _schedules = response.map((json) => Schedule.fromJson(json)).toList();
+      final cached = await _supabaseService.getSchedulesFromCache();
+      if (cached.isNotEmpty) {
+        _schedules = cached;
+        _isLoading = false;
+        notifyListeners();
+      }
+    } catch (_) {}
+
+    // 2. Fetch from remote
+    try {
+      _schedules = await _supabaseService.getSchedules();
     } catch (e) {
       debugPrint('Error fetching schedules: $e');
     } finally {
@@ -25,6 +37,29 @@ class ScheduleProvider extends ChangeNotifier {
   }
 
   List<Schedule> getSchedulesForDay(String day) {
-    return _schedules.where((s) => s.dayOfWeek == day).toList();
+    // Robust comparison: handle casing and potential spaces
+    final normalizedDay = day.trim().toLowerCase();
+    return _schedules.where((s) => s.dayOfWeek.trim().toLowerCase() == normalizedDay).toList();
+  }
+
+  Future<void> addSchedule(Schedule schedule) async {
+    final validUuid = (schedule.id.isNotEmpty && schedule.id.contains('-')) ? schedule.id : _uuid.v4();
+    final newSchedule = Schedule(
+      id: validUuid,
+      courseId: schedule.courseId,
+      dayOfWeek: schedule.dayOfWeek,
+      startTime: schedule.startTime,
+      endTime: schedule.endTime,
+      room: schedule.room,
+      courseName: schedule.courseName,
+      courseCode: schedule.courseCode,
+    );
+
+    _schedules.add(newSchedule);
+    notifyListeners();
+
+    try {
+      await _supabaseService.addSchedule(newSchedule);
+    } catch (_) {}
   }
 }

@@ -36,6 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       if (success && mounted) {
+        // Auth state change will handle navigation in main.dart if we use a Consumer there.
+        // But since we are pushing here, we should ensure the next screen is reached.
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
@@ -44,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(authProvider.error ?? 'Authentication failed'),
+            content: Text(authProvider.error ?? 'Login failed. Please check your credentials.'),
             backgroundColor: AppTheme.error,
           ),
         );
@@ -77,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: AppTheme.primary.withOpacity(0.2),
+                    color: AppTheme.primary.withValues(alpha: 0.2),
                   ),
                   child: Center(
                     child: Padding(
@@ -96,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(
                             'Your scholarly command center. Organize, focus, and achieve more with modern tools designed for academic success.',
                             style: theme.textTheme.bodyLarge?.copyWith(
-                              color: Colors.white.withOpacity(0.9),
+                              color: Colors.white.withValues(alpha: 0.9),
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -118,11 +120,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   constraints: const BoxConstraints(maxWidth: 400),
                   padding: const EdgeInsets.all(32.0),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.85),
+                    color: Colors.white.withValues(alpha: 0.85),
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.12),
+                        color: Colors.black.withValues(alpha: 0.12),
                         blurRadius: 32,
                         offset: const Offset(0, 12),
                       ),

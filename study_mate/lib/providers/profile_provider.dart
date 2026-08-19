@@ -11,7 +11,18 @@ class ProfileProvider extends ChangeNotifier {
 
   Future<void> fetchProfile() async {
     _isLoading = true;
-    notifyListeners();
+    
+    // 1. Load from cache immediately
+    try {
+      final cached = await _supabaseService.getProfileFromCache();
+      if (cached != null) {
+        _profile = cached;
+        _isLoading = false;
+        notifyListeners();
+      }
+    } catch (_) {}
+
+    // 2. Fetch from remote
     try {
       _profile = await _supabaseService.getProfile();
     } catch (e) {
@@ -23,12 +34,13 @@ class ProfileProvider extends ChangeNotifier {
   }
 
   Future<void> updateProfile(Map<String, dynamic> data) async {
-    try {
-      await _supabaseService.updateProfile(data);
-      _profile = {...?_profile, ...data};
-      notifyListeners();
-    } catch (e) {
-      debugPrint('Error updating profile: $e');
-    }
+    // 1. Instant local update
+    _profile = {...?_profile, ...data};
+    notifyListeners();
+
+    // 2. Background sync
+    _supabaseService.updateProfile(data).catchError((e) {
+      debugPrint('Error updating profile in background: $e');
+    });
   }
 }

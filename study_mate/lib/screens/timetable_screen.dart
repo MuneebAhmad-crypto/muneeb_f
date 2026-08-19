@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:study_mate/core/theme/app_theme.dart';
 import 'package:study_mate/providers/schedule_provider.dart';
 import 'package:study_mate/models/schedule.dart';
+import 'package:study_mate/screens/add_schedule_screen.dart';
 
 class TimetableScreen extends StatefulWidget {
   const TimetableScreen({super.key});
@@ -51,7 +52,9 @@ class _TimetableScreenState extends State<TimetableScreen> {
                       ],
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AddScheduleScreen()));
+                      },
                       icon: const Icon(Icons.add, size: 18),
                       label: const Text('Add Class'),
                       style: ElevatedButton.styleFrom(
@@ -101,9 +104,9 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
-                      BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 20, offset: const Offset(0, 4)),
+                      BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 20, offset: const Offset(0, 4)),
                     ],
-                    border: Border.all(color: AppTheme.outlineVariant.withOpacity(0.5)),
+                    border: Border.all(color: AppTheme.outlineVariant.withValues(alpha: 0.5)),
                   ),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -172,7 +175,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
       width: 60,
       padding: const EdgeInsets.only(top: 16),
       decoration: BoxDecoration(
-        border: Border(right: BorderSide(color: AppTheme.outlineVariant.withOpacity(0.3))),
+        border: Border(right: BorderSide(color: AppTheme.outlineVariant.withValues(alpha: 0.3))),
       ),
       child: Column(
         children: List.generate(10, (index) {
@@ -197,7 +200,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
         return Container(
           height: 80,
           decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: AppTheme.outlineVariant.withOpacity(0.2), style: BorderStyle.solid)),
+            border: Border(bottom: BorderSide(color: AppTheme.outlineVariant.withValues(alpha: 0.2), style: BorderStyle.solid)),
           ),
         );
       }),
@@ -250,7 +253,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
           borderRadius: BorderRadius.circular(12),
           border: Border(left: BorderSide(color: color, width: 6)),
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4)),
+            BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 4)),
           ],
         ),
         child: Column(
@@ -261,10 +264,10 @@ class _TimetableScreenState extends State<TimetableScreen> {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                  decoration: BoxDecoration(color: Colors.white.withOpacity(0.5), borderRadius: BorderRadius.circular(6)),
+                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.5), borderRadius: BorderRadius.circular(6)),
                   child: Text(courseCode, style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold)),
                 ),
-                Icon(Icons.edit, size: 14, color: color.withOpacity(0.6)),
+                Icon(Icons.edit, size: 14, color: color.withValues(alpha: 0.6)),
               ],
             ),
             const SizedBox(height: 4),
@@ -273,17 +276,17 @@ class _TimetableScreenState extends State<TimetableScreen> {
               const Spacer(),
               Row(
                 children: [
-                  Icon(Icons.schedule, size: 12, color: color.withOpacity(0.8)),
+                  Icon(Icons.schedule, size: 12, color: color.withValues(alpha: 0.8)),
                   const SizedBox(width: 4),
-                  Text(time, style: TextStyle(fontSize: 10, color: color.withOpacity(0.8))),
+                  Text(time, style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
                 ],
               ),
               const SizedBox(height: 2),
               Row(
                 children: [
-                  Icon(Icons.location_on, size: 12, color: color.withOpacity(0.8)),
+                  Icon(Icons.location_on, size: 12, color: color.withValues(alpha: 0.8)),
                   const SizedBox(width: 4),
-                  Text(location, style: TextStyle(fontSize: 10, color: color.withOpacity(0.8))),
+                  Text(location, style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
                 ],
               ),
             ],

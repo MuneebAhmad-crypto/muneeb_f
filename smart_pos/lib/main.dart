@@ -63,8 +63,9 @@ void main() async {
       backupService.initialize(),
       printerService.initialize(),
     ]);
-    // Seed data - ensure 5 categories always exist
-    DataSeeder().seedDefaultData();
+    // Live mode: No seeding
+    // One-time wipe of dummy data (uncomment if you want to clear device COMPLETELY)
+    await DataSeeder().clearAllLocalData();
   });
 
   runApp(

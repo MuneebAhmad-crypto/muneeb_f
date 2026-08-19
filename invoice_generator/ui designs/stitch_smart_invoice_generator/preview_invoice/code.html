@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Invoice Maker - Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary-fixed": "#171c20",
+                        "background": "#f8f9ff",
+                        "on-secondary-fixed-variant": "#003ea8",
+                        "on-surface-variant": "#44464f",
+                        "inverse-primary": "#b2c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#495d91",
+                        "outline": "#757780",
+                        "tertiary": "#030609",
+                        "on-tertiary-fixed-variant": "#43474c",
+                        "surface": "#f8f9ff",
+                        "primary-container": "#001b4d",
+                        "surface-container-low": "#eff4ff",
+                        "primary-fixed": "#dae2ff",
+                        "primary": "#000417",
+                        "on-background": "#121c2a",
+                        "error": "#ba1a1a",
+                        "secondary": "#0051d5",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c5c6d0",
+                        "on-tertiary-container": "#82878c",
+                        "tertiary-fixed-dim": "#c3c7cd",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-fixed": "#dbe1ff",
+                        "secondary-container": "#316bf3",
+                        "on-surface": "#121c2a",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#d9e3f6",
+                        "on-primary-fixed-variant": "#304578",
+                        "tertiary-fixed": "#dfe3e9",
+                        "on-primary-fixed": "#001847",
+                        "on-secondary-container": "#fefcff",
+                        "inverse-surface": "#27313f",
+                        "surface-container": "#e6eeff",
+                        "secondary-fixed-dim": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d0dbed",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#1a1f23",
+                        "on-secondary-fixed": "#00174b",
+                        "surface-container-high": "#dee9fc",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "on-primary-container": "#7185bc",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#d9e3f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "gutter": "12px",
+                        "xs": "4px",
+                        "margin-mobile": "16px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .invoice-paper {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .invoice-header-bg {
+            background-color: #001f5c; /* Custom navy matching reference */
+        }
+        .table-header-bg {
+            background-color: #001f5c;
+        }
+        .text-custom-navy {
+            color: #001f5c;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopAppBar (Transactional - Suppressed regular Nav, using back button context) -->
+<header class="bg-surface-bright border-b border-outline-variant flex justify-between items-center px-margin-mobile h-16 w-full z-10 sticky top-0">
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors duration-200 ease-in-out">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Preview Invoice</h1>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col pb-32">
+<!-- Progress Indicator -->
+<div class="px-margin-mobile py-lg w-full max-w-2xl mx-auto">
+<div class="flex items-center justify-between relative">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-0.5 bg-surface-variant -z-10"></div>
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-0.5 bg-secondary -z-10"></div>
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-caps text-label-caps shadow-sm">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<span class="mt-2 font-label-caps text-label-caps text-on-surface-variant">Details</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-caps text-label-caps shadow-sm">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<span class="mt-2 font-label-caps text-label-caps text-on-surface-variant">Items</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-caps text-label-caps shadow-md ring-4 ring-secondary-container">
+                        3
+                    </div>
+<span class="mt-2 font-label-caps text-label-caps text-primary">Preview</span>
+</div>
+</div>
+</div>
+<!-- Invoice Preview Container -->
+<div class="px-md md:px-lg flex-grow flex justify-center w-full">
+<div class="w-full max-w-[800px] bg-white invoice-paper overflow-hidden rounded-sm relative mt-4 mb-8">
+<!-- Invoice Document Header -->
+<div class="p-6 md:p-8 flex justify-between items-start border-b-2 border-red-600">
+<div class="flex items-center gap-4">
+<div class="w-20 h-20 bg-surface-container flex items-center justify-center rounded-sm">
+<!-- Placeholder for Logo -->
+<span class="text-primary font-headline-lg-mobile text-headline-lg-mobile font-bold italic">PST</span>
+</div>
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg font-bold text-custom-navy tracking-tight uppercase leading-none">Poultry Smart Traders</h2>
+<p class="text-[10px] md:text-xs text-on-surface-variant mt-2 max-w-xs">23-A Gulshan Iqbal Alla Din Park, Karachi (Pak.)</p>
+<p class="text-[10px] md:text-xs text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px] text-red-600" style="font-variation-settings: 'FILL' 1;">mail</span>
+                                poultrysmarttraders01@gmail.com
+                            </p>
+</div>
+</div>
+</div>
+<!-- Sale Invoice Title Bar -->
+<div class="invoice-header-bg text-white text-center py-2 uppercase font-bold tracking-widest text-lg md:text-xl">
+                    Sale Invoice
+                </div>
+<!-- Meta Info Grid -->
+<div class="grid grid-cols-4 border-b border-outline-variant text-xs md:text-sm">
+<div class="col-span-1 p-2 border-r border-outline-variant bg-surface-bright text-on-surface-variant font-medium">No:</div>
+<div class="col-span-1 p-2 border-r border-outline-variant font-data-mono text-data-mono text-custom-navy font-bold">818406</div>
+<div class="col-span-1 p-2 border-r border-outline-variant bg-surface-bright text-on-surface-variant font-medium">Invoice #:</div>
+<div class="col-span-1 p-2 font-data-mono text-data-mono text-custom-navy font-bold">468</div>
+<div class="col-span-1 p-2 border-t border-r border-outline-variant bg-surface-bright text-on-surface-variant font-medium">Date:</div>
+<div class="col-span-1 p-2 border-t border-r border-outline-variant font-data-mono text-data-mono text-custom-navy font-bold">16-08-2026</div>
+<div class="col-span-1 p-2 border-t border-r border-outline-variant bg-surface-bright text-on-surface-variant font-medium">Order #:</div>
+<div class="col-span-1 p-2 border-t border-outline-variant font-data-mono text-data-mono text-custom-navy font-bold"></div>
+</div>
+<!-- Customer Info -->
+<div class="grid grid-cols-4 border-b border-outline-variant text-xs md:text-sm">
+<div class="col-span-1 p-2 border-r border-outline-variant bg-surface-bright text-on-surface-variant font-medium flex items-center">Delivered To:</div>
+<div class="col-span-3 p-2 font-bold text-custom-navy text-base">Ijaz Ahmad</div>
+<div class="col-span-1 p-2 border-t border-r border-outline-variant bg-surface-bright text-on-surface-variant font-medium flex items-center">Address:</div>
+<div class="col-span-3 p-2 border-t border-outline-variant font-bold text-custom-navy text-base">Mian Chanu</div>
+</div>
+<!-- Line Items Table -->
+<div class="mt-4">
+<div class="grid grid-cols-12 table-header-bg text-white text-[10px] md:text-xs text-center font-medium">
+<div class="col-span-1 p-2 border-r border-white/20">S No</div>
+<div class="col-span-4 p-2 border-r border-white/20 text-left">Name of Product</div>
+<div class="col-span-2 p-2 border-r border-white/20">Packing</div>
+<div class="col-span-2 p-2 border-r border-white/20">Qty</div>
+<div class="col-span-1 p-2 border-r border-white/20 leading-tight">Unit Rate<br/>(Rs.)</div>
+<div class="col-span-2 p-2 leading-tight">Amount<br/>(Rs.)</div>
+</div>
+<!-- Rows -->
+<div class="grid grid-cols-12 text-[11px] md:text-sm text-center border-b border-outline-variant font-data-mono text-data-mono">
+<div class="col-span-1 p-2 border-r border-outline-variant text-on-surface-variant font-medium">1</div>
+<div class="col-span-4 p-2 border-r border-outline-variant text-left font-bold text-custom-navy font-body-md">Medivit-C</div>
+<div class="col-span-2 p-2 border-r border-outline-variant text-custom-navy font-bold">1kg</div>
+<div class="col-span-2 p-2 border-r border-outline-variant text-custom-navy font-bold">12kg</div>
+<div class="col-span-1 p-2 border-r border-outline-variant text-custom-navy font-bold">2250</div>
+<div class="col-span-2 p-2 text-custom-navy font-bold bg-surface-bright">27000</div>
+</div>
+<div class="grid grid-cols-12 text-[11px] md:text-sm text-center border-b border-outline-variant font-data-mono text-data-mono">
+<div class="col-span-1 p-2 border-r border-outline-variant text-on-surface-variant font-medium">2</div>
+<div class="col-span-4 p-2 border-r border-outline-variant text-left font-bold text-custom-navy font-body-md">Livocina</div>
+<div class="col-span-2 p-2 border-r border-outline-variant text-custom-navy font-bold">5 liter</div>
+<div class="col-span-2 p-2 border-r border-outline-variant text-custom-navy font-bold">10 liter</div>
+<div class="col-span-1 p-2 border-r border-outline-variant text-custom-navy font-bold">2250</div>
+<div class="col-span-2 p-2 text-custom-navy font-bold bg-surface-bright">22500</div>
+</div>
+<!-- Empty Rows for padding -->
+<div class="grid grid-cols-12 text-[11px] md:text-sm border-b border-outline-variant h-8">
+<div class="col-span-1 border-r border-outline-variant"></div><div class="col-span-4 border-r border-outline-variant"></div><div class="col-span-2 border-r border-outline-variant"></div><div class="col-span-2 border-r border-outline-variant"></div><div class="col-span-1 border-r border-outline-variant"></div><div class="col-span-2"></div>
+</div>
+<div class="grid grid-cols-12 text-[11px] md:text-sm border-b border-outline-variant h-8">
+<div class="col-span-1 border-r border-outline-variant"></div><div class="col-span-4 border-r border-outline-variant"></div><div class="col-span-2 border-r border-outline-variant"></div><div class="col-span-2 border-r border-outline-variant"></div><div class="col-span-1 border-r border-outline-variant"></div><div class="col-span-2"></div>
+</div>
+</div>
+<!-- Totals Section -->
+<div class="flex flex-col md:flex-row border-b border-outline-variant">
+<div class="w-full md:w-7/12 p-4 border-b md:border-b-0 md:border-r border-outline-variant">
+<p class="text-xs text-on-surface-variant mb-1">Amount in Words:</p>
+<p class="font-bold text-custom-navy text-sm md:text-base leading-tight">Rupees: Forty Nine Thousand Five Hundred Only</p>
+</div>
+<div class="w-full md:w-5/12">
+<div class="flex justify-between p-2 border-b border-outline-variant text-xs md:text-sm">
+<span class="text-on-surface-variant font-medium">Gross Amount:</span>
+<span class="font-data-mono text-data-mono text-custom-navy font-bold">49500</span>
+</div>
+<div class="flex justify-between p-2 border-b border-outline-variant text-xs md:text-sm bg-surface-bright">
+<span class="text-on-surface-variant font-medium">Discount:</span>
+<span class="font-data-mono text-data-mono text-custom-navy font-bold">0</span>
+</div>
+<div class="flex justify-between p-3 table-header-bg text-white text-sm md:text-base font-bold">
+<span>Invoice Amount:</span>
+<span class="font-data-mono text-data-mono">49500</span>
+</div>
+</div>
+</div>
+<!-- Footer Signatures -->
+<div class="p-6 flex justify-between items-end mt-4 mb-4">
+<div class="w-24 h-24 border-2 border-custom-navy rounded-full flex items-center justify-center opacity-50 relative">
+<div class="text-[8px] text-center uppercase tracking-widest text-custom-navy font-bold">
+                            Official<br/>Seal
+                        </div>
+</div>
+<div class="text-center">
+<div class="border-b border-custom-navy w-32 md:w-48 mb-2">
+<!-- Placeholder for Signature -->
+</div>
+<span class="text-xs text-on-surface-variant">Authorized Signature</span>
+</div>
+</div>
+<!-- Bottom Decorative Bar -->
+<div class="h-4 w-full bg-custom-navy absolute bottom-0 left-0"></div>
+</div>
+</div>
+</main>
+<!-- Sticky Action Bar (Replaces standard BottomNavBar for transactional flow) -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant p-margin-mobile shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-50">
+<div class="max-w-2xl mx-auto flex gap-4">
+<button class="flex-1 py-3 px-6 rounded-lg border border-primary text-primary font-label-caps text-label-caps uppercase bg-white hover:bg-surface-container-low transition-colors duration-200">
+                Edit Details
+            </button>
+<button class="flex-[2] py-3 px-6 rounded-lg bg-secondary text-on-secondary font-label-caps text-label-caps uppercase hover:opacity-90 transition-opacity duration-200 shadow-md flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+                Generate Final Invoice
+            </button>
+</div>
+</div>
+</body></html>

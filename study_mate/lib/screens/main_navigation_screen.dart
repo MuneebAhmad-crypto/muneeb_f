@@ -4,12 +4,21 @@ import 'package:study_mate/core/theme/app_theme.dart';
 import 'package:study_mate/providers/profile_provider.dart';
 import 'package:study_mate/providers/course_provider.dart';
 import 'package:study_mate/providers/schedule_provider.dart';
+import 'package:study_mate/providers/assignment_provider.dart';
+import 'package:study_mate/providers/task_provider.dart';
+import 'package:study_mate/providers/note_provider.dart';
+import 'package:study_mate/providers/flashcard_provider.dart';
+import 'package:study_mate/providers/attendance_provider.dart';
+import 'package:study_mate/providers/quiz_provider.dart';
+import 'package:study_mate/providers/exam_provider.dart';
 import 'package:study_mate/widgets/navigation/app_drawer.dart';
 import 'package:study_mate/screens/dashboard_screen.dart';
 import 'package:study_mate/screens/academics_screen.dart';
 import 'package:study_mate/screens/study_hub_screen.dart';
 import 'package:study_mate/screens/tools_screen.dart';
 import 'package:study_mate/screens/profile_screen.dart';
+import 'package:study_mate/screens/add_course_screen.dart';
+import 'package:study_mate/screens/note_editor_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -25,10 +34,32 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<ProfileProvider>(context, listen: false).fetchProfile();
-      Provider.of<CourseProvider>(context, listen: false).fetchCourses();
-      Provider.of<ScheduleProvider>(context, listen: false).fetchSchedules();
+      _fetchData();
     });
+  }
+
+  void _fetchData() {
+    final profile = Provider.of<ProfileProvider>(context, listen: false);
+    final courses = Provider.of<CourseProvider>(context, listen: false);
+    final schedules = Provider.of<ScheduleProvider>(context, listen: false);
+    final assignments = Provider.of<AssignmentProvider>(context, listen: false);
+    final tasks = Provider.of<TaskProvider>(context, listen: false);
+    final notes = Provider.of<NoteProvider>(context, listen: false);
+    final cards = Provider.of<FlashcardProvider>(context, listen: false);
+    final att = Provider.of<AttendanceProvider>(context, listen: false);
+    final quizzes = Provider.of<QuizProvider>(context, listen: false);
+    final exams = Provider.of<ExamProvider>(context, listen: false);
+
+    profile.fetchProfile();
+    courses.fetchCourses();
+    schedules.fetchSchedules();
+    assignments.fetchAssignments();
+    tasks.fetchTasks();
+    notes.fetchNotes();
+    cards.fetchFlashcards();
+    att.fetchAttendance();
+    quizzes.fetchQuizzes();
+    exams.fetchExams();
   }
 
   final List<Widget> _screens = [
@@ -63,10 +94,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ? Container(
               height: 80,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.8),
+                color: Colors.white.withValues(alpha: 0.8),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 10,
                     offset: const Offset(0, -2),
                   ),
@@ -100,13 +131,94 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           : null,
       floatingActionButton: isMobile && _selectedIndex == 0
           ? FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                _showQuickActions(context);
+              },
               backgroundColor: AppTheme.secondaryContainer,
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               child: const Icon(Icons.add, size: 28),
             )
           : null,
+    );
+  }
+
+  void _showQuickActions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      builder: (context) => Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Quick Actions', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildActionItem(context, Icons.book, 'Course', () {
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AddCourseScreen()));
+                }),
+                _buildActionItem(context, Icons.assignment, 'Task', () {
+                  Navigator.pop(context);
+                  _showAddTaskDialog(context);
+                }),
+                _buildActionItem(context, Icons.note_add, 'Note', () {
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const NoteEditorScreen()));
+                }),
+              ],
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showAddTaskDialog(BuildContext context) {
+    final controller = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('New Task'),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          decoration: const InputDecoration(hintText: 'What needs to be done?'),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () {
+              if (controller.text.isNotEmpty) {
+                Provider.of<TaskProvider>(context, listen: false).addTask(controller.text);
+                Navigator.pop(context);
+              }
+            },
+            child: const Text('Add'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionItem(BuildContext context, IconData icon, String label, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(color: AppTheme.primaryContainer.withValues(alpha: 0.1), shape: BoxShape.circle),
+            child: Icon(icon, color: AppTheme.primary),
+          ),
+          const SizedBox(height: 8),
+          Text(label),
+        ],
+      ),
     );
   }
 

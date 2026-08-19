@@ -22,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
               flex: isMobile ? 2 : 1,
               child: Container(
                 width: double.infinity,
-                color: AppTheme.primaryFixed.withOpacity(0.3),
+                color: AppTheme.primaryFixed.withValues(alpha: 0.3),
                 child: Stack(
                   children: [
                     Positioned.fill(
@@ -32,7 +32,7 @@ class WelcomeScreen extends StatelessWidget {
                             center: Alignment.center,
                             radius: 1.0,
                             colors: [
-                              AppTheme.primary.withOpacity(0.1),
+                              AppTheme.primary.withValues(alpha: 0.1),
                               Colors.transparent,
                             ],
                           ),
@@ -42,13 +42,9 @@ class WelcomeScreen extends StatelessWidget {
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.all(32.0),
-                        child: Image.network(
-                          'https://lh3.googleusercontent.com/aida-public/AB6AXuC82VsI8RC8MWVyLyMoKp_wW00cJxpBLUsqMOa2rA0mhMjjf2L5hz_C7toMFicygxf-Huvqco8m1TEI3Qmj-sgJYgXHfyqtt1TCHw30F8a-4yK13UW4gZfQ09ngds4CbUan_MC5WBkVxNMZO7NWqH_QOxCAa1LEfv4FAFveR-p3UTw7SpTTjUJoYKIWbqz2SLCnM-jv3hGiHgYNudgZjWwqhoj14FLeN1hIunXYbAJv5keoEmFB_o5ACg',
+                        child: Image.asset(
+                          'asset/logo.png',
                           fit: BoxFit.contain,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return const Center(child: CircularProgressIndicator());
-                          },
                           errorBuilder: (context, error, stackTrace) => const Icon(Icons.school, size: 100, color: AppTheme.primary),
                         ),
                       ),
@@ -77,10 +73,9 @@ class WelcomeScreen extends StatelessWidget {
                               color: AppTheme.primary,
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Icon(
-                              Icons.menu_book,
-                              color: Colors.white,
-                              size: 24,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset('asset/logo.png', color: Colors.white),
                             ),
                           ),
                           const SizedBox(width: 8),
@@ -120,7 +115,7 @@ class WelcomeScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.secondary,
                           foregroundColor: AppTheme.onSecondary,
-                          shadowColor: AppTheme.secondary.withOpacity(0.2),
+                          shadowColor: AppTheme.secondary.withValues(alpha: 0.2),
                           elevation: 8,
                         ),
                         child: const Row(

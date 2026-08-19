@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:study_mate/core/theme/app_theme.dart';
+import 'package:study_mate/screens/gpa_calculator_screen.dart';
+import 'package:study_mate/screens/attendance_calculator_screen.dart';
+import 'package:study_mate/screens/cgpa_calculator_screen.dart';
+import 'package:study_mate/screens/percentage_calculator_screen.dart';
 
 class ToolsScreen extends StatelessWidget {
   const ToolsScreen({super.key});
@@ -45,12 +49,12 @@ class ToolsScreen extends StatelessWidget {
 
                 // Tools Grid
                 GridView.count(
-                  crossAxisCount: isDesktop ? 2 : 1,
+                  crossAxisCount: 1,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   mainAxisSpacing: 24,
                   crossAxisSpacing: 24,
-                  childAspectRatio: isDesktop ? 1.5 : 1.3,
+                  childAspectRatio: 1.3,
                   children: [
                     _buildToolCard(
                       icon: Icons.calculate,
@@ -58,7 +62,9 @@ class ToolsScreen extends StatelessWidget {
                       iconBgColor: AppTheme.primaryContainer,
                       title: 'GPA Calculator',
                       description: 'Estimate your semester Grade Point Average based on your current credit hours and expected grades.',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const GpaCalculatorScreen()));
+                      },
                     ),
                     _buildToolCard(
                       icon: Icons.school,
@@ -66,7 +72,9 @@ class ToolsScreen extends StatelessWidget {
                       iconBgColor: AppTheme.tertiaryFixedDim,
                       title: 'CGPA Calculator',
                       description: 'Track your Cumulative Grade Point Average across multiple semesters to monitor long-term progress.',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const CgpaCalculatorScreen()));
+                      },
                     ),
                     _buildToolCard(
                       icon: Icons.fact_check,
@@ -74,7 +82,9 @@ class ToolsScreen extends StatelessWidget {
                       iconBgColor: AppTheme.secondaryFixed,
                       title: 'Attendance Calculator',
                       description: 'Find out how many classes you can afford to miss while maintaining your target attendance percentage.',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AttendanceCalculatorScreen()));
+                      },
                     ),
                     _buildToolCard(
                       icon: Icons.percent,
@@ -82,7 +92,9 @@ class ToolsScreen extends StatelessWidget {
                       iconBgColor: AppTheme.surfaceVariant,
                       title: 'Percentage Calculator',
                       description: 'Quickly convert marks to percentages or calculate weighted scores for complex assignments.',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const PercentageCalculatorScreen()));
+                      },
                     ),
                   ],
                 ),
@@ -112,12 +124,12 @@ class ToolsScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 20,
               offset: const Offset(0, 4),
             ),
           ],
-          border: Border.all(color: AppTheme.outlineVariant.withOpacity(0.2)),
+          border: Border.all(color: AppTheme.outlineVariant.withValues(alpha: 0.2)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

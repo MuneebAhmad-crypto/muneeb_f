@@ -28,6 +28,8 @@ class VendorProvider extends ChangeNotifier {
 
       final results = await _db.query(
         AppConstants.vendorsTable,
+        where: 'user_id = ?',
+        whereArgs: [userId],
         orderBy: 'name ASC',
       );
 

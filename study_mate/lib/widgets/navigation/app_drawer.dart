@@ -19,10 +19,9 @@ class AppDrawer extends StatelessWidget {
     final profileProvider = Provider.of<ProfileProvider>(context);
     final profile = profileProvider.profile;
     
-    final userName = profile?['name'] ?? 'Alex Johnson';
-    final university = profile?['university'] ?? 'Computer Science, Year 3';
-    final gpa = profile?['gpa']?.toString() ?? '3.8';
-    final avatarUrl = profile?['avatar_url'] ?? 'https://lh3.googleusercontent.com/aida-public/AB6AXuCZMyZM4XGwbLgZxYaiyrW32xG852q_oWauLmdPpxHxyWvcriRt6C-SD5qDwGEHxcYUmuXmjFWBbbMK1CNAyiBksIEEll7GYRRCBMKanssiZ1xdjArbHbNlD_-POdr4hNTtQYwfniVXPDUkvd0_-PWAemhn2TZcRINQqeRHsqu4cK6Uv_JpMciyj7wm9ftC9Py_Ry8L08ID8xFIQUR0K30cO7ipIarrFivpa9J1D-J5GnEsQkQX-Wa7rQ';
+    final userName = profile?['name'] ?? 'User';
+    final university = profile?['university'] ?? 'Student';
+    final gpa = profile?['gpa']?.toString() ?? '0.0';
 
     return Container(
       width: 280,
@@ -30,42 +29,55 @@ class AppDrawer extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          // Header
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 24,
-                backgroundImage: NetworkImage(avatarUrl),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(userName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Text(university, style: const TextStyle(fontSize: 12, color: AppTheme.onSurfaceVariant)),
-                    const SizedBox(height: 4),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: AppTheme.primaryContainer,
-                        borderRadius: BorderRadius.circular(12),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  // Header
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 24,
+                        backgroundColor: AppTheme.surfaceVariant,
+                        backgroundImage: (profile?['avatar_url'] != null && profile!['avatar_url'].toString().isNotEmpty)
+                          ? NetworkImage(profile['avatar_url']) 
+                          : null,
+                        child: (profile?['avatar_url'] == null || profile!['avatar_url'].toString().isEmpty)
+                          ? const Icon(Icons.person, color: AppTheme.primary) 
+                          : null,
                       ),
-                      child: Text('GPA: $gpa', style: const TextStyle(fontSize: 10, color: AppTheme.onPrimaryContainer, fontWeight: FontWeight.bold)),
-                    ),
-                  ],
-                ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(userName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            Text(university, style: const TextStyle(fontSize: 12, color: AppTheme.onSurfaceVariant)),
+                            const SizedBox(height: 4),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: AppTheme.primaryContainer,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text('GPA: $gpa', style: const TextStyle(fontSize: 10, color: AppTheme.onPrimaryContainer, fontWeight: FontWeight.bold)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  // Nav Items
+                  _buildDrawerItem(Icons.home_outlined, 'Home', selectedIndex == 0, () => onDestinationSelected(0)),
+                  _buildDrawerItem(Icons.school_outlined, 'Academics', selectedIndex == 1, () => onDestinationSelected(1)),
+                  _buildDrawerItem(Icons.menu_book_outlined, 'Study', selectedIndex == 2, () => onDestinationSelected(2)),
+                  _buildDrawerItem(Icons.calculate_outlined, 'Tools', selectedIndex == 3, () => onDestinationSelected(3)),
+                  _buildDrawerItem(Icons.person_outline, 'Profile', selectedIndex == 4, () => onDestinationSelected(4)),
+                ],
               ),
-            ],
+            ),
           ),
-          const SizedBox(height: 32),
-          // Nav Items
-          _buildDrawerItem(Icons.home_outlined, 'Home', selectedIndex == 0, () => onDestinationSelected(0)),
-          _buildDrawerItem(Icons.school_outlined, 'Academics', selectedIndex == 1, () => onDestinationSelected(1)),
-          _buildDrawerItem(Icons.menu_book_outlined, 'Study', selectedIndex == 2, () => onDestinationSelected(2)),
-          _buildDrawerItem(Icons.calculate_outlined, 'Tools', selectedIndex == 3, () => onDestinationSelected(3)),
-          _buildDrawerItem(Icons.person_outline, 'Profile', selectedIndex == 4, () => onDestinationSelected(4)),
-          const Spacer(),
           const Divider(),
           _buildDrawerItem(Icons.settings_outlined, 'Settings', false, () {}),
         ],

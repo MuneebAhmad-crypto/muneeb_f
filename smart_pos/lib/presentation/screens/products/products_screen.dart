@@ -25,6 +25,10 @@ class _ProductsScreenState extends State<ProductsScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProductProvider>().loadCategories();
+      context.read<ProductProvider>().loadProducts();
+    });
   }
 
   @override
@@ -703,7 +707,35 @@ class _ProductsScreenState extends State<ProductsScreen>
                           // Category Dropdown
                         Consumer<ProductProvider>(
                           builder: (context, provider, _) {
+                            if (provider.categories.isEmpty) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'No categories found. Create one first:',
+                                    style: TextStyle(color: AppTheme.errorColor, fontSize: 12),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  OutlinedButton.icon(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      _tabController.animateTo(1);
+                                      _showAddCategoryDialog();
+                                    },
+                                    icon: const Icon(Icons.add_circle_outline),
+                                    label: const Text('Add Category'),
+                                    style: OutlinedButton.styleFrom(
+                                      foregroundColor: AppTheme.primaryColor,
+                                      side: const BorderSide(color: AppTheme.primaryColor),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
+
                             return DropdownButtonFormField<String>(
+                              value: selectedCategoryId,
                               decoration: InputDecoration(
                                 labelText: 'Category',
                                 border: OutlineInputBorder(
@@ -716,7 +748,11 @@ class _ProductsScreenState extends State<ProductsScreen>
                                 child: Text(c.name),
                               ))
                                   .toList(),
-                              onChanged: (v) => selectedCategoryId = v,
+                              onChanged: (v) {
+                                setModalState(() {
+                                  selectedCategoryId = v;
+                                });
+                              },
                               validator: (v) => v == null ? 'Required' : null,
                             );
                           },
@@ -1246,7 +1282,11 @@ class _ProductsScreenState extends State<ProductsScreen>
                                 child: Text(c.name),
                               ))
                                   .toList(),
-                              onChanged: (v) => selectedCategoryId = v,
+                              onChanged: (v) {
+                                setModalState(() {
+                                  selectedCategoryId = v;
+                                });
+                              },
                               validator: (v) => v == null ? 'Required' : null,
                             );
                           },

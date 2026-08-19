@@ -58,32 +58,27 @@ class ProductProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      debugPrint('[ProductProvider] loadProducts() called');
+      final prefs = await SharedPreferences.getInstance();
+      final userId = prefs.getString(AppConstants.userIdKey);
       
-      // Simplified query - load ALL active products
+      debugPrint('[ProductProvider] loadProducts() called for user: $userId');
+      
       final results = await _db.query(
         AppConstants.productsTable,
-        where: 'is_active = 1',
+        where: 'user_id = ? AND is_active = 1',
+        whereArgs: [userId],
         orderBy: 'name ASC',
       );
       
       debugPrint('[ProductProvider] Found ${results.length} products in database');
-      
-      // Debug: Print each product
-      for (var r in results) {
-        debugPrint('[ProductProvider] Product: ${r['name']}, id: ${r['id']}, user_id: ${r['user_id']}, is_active: ${r['is_active']}');
-      }
 
       _products = results.map((e) => ProductModel.fromJson(e)).toList();
       
-      debugPrint('[ProductProvider] Loaded ${_products.length} products into memory');
-      
       _updateLowStockProducts();
       _errorMessage = null;
-    } catch (e, stackTrace) {
+    } catch (e) {
       _errorMessage = 'Failed to load products: $e';
       debugPrint('[ProductProvider] Load products error: $e');
-      debugPrint('[ProductProvider] Stack trace: $stackTrace');
     } finally {
       _isLoading = false;
       notifyListeners();

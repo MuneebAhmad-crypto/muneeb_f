@@ -136,4 +136,32 @@ class AppTheme {
       ),
     );
   }
+
+  static ThemeData get darkTheme {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.dark,
+      colorScheme: ColorScheme.dark(
+        primary: primaryContainer,
+        onPrimary: Colors.white,
+        primaryContainer: primary,
+        secondary: secondaryContainer,
+        surface: const Color(0xFF1E2228),
+        onSurface: Colors.white,
+        onSurfaceVariant: const Color(0xFFB0B3C6),
+      ),
+      scaffoldBackgroundColor: const Color(0xFF121418),
+      textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: secondaryContainer,
+          foregroundColor: Colors.white,
+          minimumSize: const Size.fromHeight(56),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
+    );
+  }
 }

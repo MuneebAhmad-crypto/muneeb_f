@@ -113,39 +113,15 @@ class CustomerProvider extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       final userId = prefs.getString(AppConstants.userIdKey);
 
-      // Query customers - handle case where user_id might be null
-      List<Map<String, dynamic>> results;
-      if (userId != null && userId.isNotEmpty) {
-        results = await _db.query(
-          AppConstants.customersTable,
-          where: '(user_id = ? OR user_id IS NULL) AND is_active = 1',
-          whereArgs: [userId],
-          orderBy: 'name ASC',
-        );
-      } else {
-        results = await _db.query(
-          AppConstants.customersTable,
-          where: 'is_active = 1',
-          orderBy: 'name ASC',
-        );
-      }
+      // Query customers - strictly filter by userId
+      final results = await _db.query(
+        AppConstants.customersTable,
+        where: 'user_id = ? AND is_active = 1',
+        whereArgs: [userId],
+        orderBy: 'name ASC',
+      );
 
       _customers = results.map((e) => CustomerModel.fromJson(e)).toList();
-      
-      // Update user_id for customers that don't have one
-      if (userId != null && userId.isNotEmpty) {
-        for (var customer in _customers) {
-          if (customer.userId == null || customer.userId!.isEmpty) {
-            await _db.update(
-              AppConstants.customersTable,
-              {'user_id': userId},
-              where: 'id = ?',
-              whereArgs: [customer.id],
-            );
-          }
-        }
-      }
-      
       _errorMessage = null;
     } catch (e) {
       _errorMessage = 'Failed to load customers: $e';

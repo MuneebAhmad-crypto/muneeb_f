@@ -35,6 +35,7 @@ class Schedule {
   }
 
   static TimeOfDay _parseTime(String time) {
+    // Handle both HH:mm and HH:mm:ss formats
     final parts = time.split(':');
     return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
   }

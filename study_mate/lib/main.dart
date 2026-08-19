@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_mate/core/theme/app_theme.dart';
-import 'package:study_mate/screens/welcome_screen.dart';
+import 'package:study_mate/screens/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:study_mate/core/constants/app_constants.dart';
 import 'package:study_mate/providers/course_provider.dart';
 import 'package:study_mate/providers/auth_provider.dart';
 import 'package:study_mate/providers/profile_provider.dart';
 import 'package:study_mate/providers/schedule_provider.dart';
-import 'package:study_mate/screens/main_navigation_screen.dart';
+import 'package:study_mate/providers/note_provider.dart';
+import 'package:study_mate/providers/flashcard_provider.dart';
+import 'package:study_mate/providers/assignment_provider.dart';
+import 'package:study_mate/providers/attendance_provider.dart';
+import 'package:study_mate/providers/exam_provider.dart';
+import 'package:study_mate/providers/task_provider.dart';
+import 'package:study_mate/providers/quiz_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Initialize Supabase
+  // Initialize Supabase with publishable key
   await Supabase.initialize(
-    url: AppConstants.supabaseUrl,
-    anonKey: AppConstants.supabaseAnonKey,
+    url: 'https://srtqadaxhitddbdgwzgg.supabase.co',
+    publishableKey: 'sb_publishable_t-bLw_YOw3nQURnlRFRfNQ_mqZJxBLL',
+    authOptions: const FlutterAuthClientOptions(
+      authFlowType: AuthFlowType.pkce,
+    ),
   );
 
   runApp(
@@ -26,6 +34,13 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
         ChangeNotifierProvider(create: (_) => CourseProvider()),
         ChangeNotifierProvider(create: (_) => ScheduleProvider()),
+        ChangeNotifierProvider(create: (_) => NoteProvider()),
+        ChangeNotifierProvider(create: (_) => FlashcardProvider()),
+        ChangeNotifierProvider(create: (_) => AssignmentProvider()),
+        ChangeNotifierProvider(create: (_) => AttendanceProvider()),
+        ChangeNotifierProvider(create: (_) => ExamProvider()),
+        ChangeNotifierProvider(create: (_) => TaskProvider()),
+        ChangeNotifierProvider(create: (_) => QuizProvider()),
       ],
       child: const MyApp(),
     ),
@@ -41,14 +56,7 @@ class MyApp extends StatelessWidget {
       title: 'StudyMate',
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
-      home: Consumer<AuthProvider>(
-        builder: (context, auth, _) {
-          if (auth.isAuthenticated) {
-            return const MainNavigationScreen();
-          }
-          return const WelcomeScreen();
-        },
-      ),
+      home: const SplashScreen(),
     );
   }
 }

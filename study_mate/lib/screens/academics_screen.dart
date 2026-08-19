@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:study_mate/core/theme/app_theme.dart';
+import 'package:study_mate/providers/schedule_provider.dart';
+import 'package:study_mate/providers/course_provider.dart';
+import 'package:study_mate/providers/assignment_provider.dart';
+import 'package:study_mate/providers/exam_provider.dart';
+import 'package:study_mate/providers/attendance_provider.dart';
+import 'package:study_mate/models/schedule.dart';
+import 'package:study_mate/models/assignment.dart';
+import 'package:study_mate/models/exam.dart';
+import 'package:intl/intl.dart';
 import 'package:study_mate/screens/timetable_screen.dart';
+import 'package:study_mate/screens/my_courses_screen.dart';
+import 'package:study_mate/screens/assignments_screen.dart';
+import 'package:study_mate/screens/exams_screen.dart';
+import 'package:study_mate/screens/attendance_screen.dart';
+import 'package:study_mate/screens/add_schedule_screen.dart';
 
 class AcademicsScreen extends StatelessWidget {
   const AcademicsScreen({super.key});
@@ -8,42 +23,34 @@ class AcademicsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final size = MediaQuery.of(context).size;
-    // final isDesktop = size.width >= 768;
 
     return Scaffold(
       backgroundColor: AppTheme.background,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 1200),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Page Header
-                Text('Academics', style: theme.textTheme.headlineLarge),
-                Text(
-                  'Manage your courses, schedule, and academic progress.',
-                  style: theme.textTheme.bodyMedium?.copyWith(color: AppTheme.onSurfaceVariant),
-                ),
-                const SizedBox(height: 32),
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 1200),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Page Header
+                  Text('Academics', style: theme.textTheme.headlineLarge),
+                  Text(
+                    'Manage your courses, schedule, and academic progress.',
+                    style: theme.textTheme.bodyMedium?.copyWith(color: AppTheme.onSurfaceVariant),
+                  ),
+                  const SizedBox(height: 32),
 
-                // Semester Overview (Hero Card)
-                _buildSemesterOverview(context),
-                const SizedBox(height: 24),
+                  // Semester Overview (Hero Card)
+                  _buildSemesterOverview(context),
+                  const SizedBox(height: 24),
 
-                // Bento Grid Layout for Academic Modules
-                LayoutBuilder(
-                  builder: (context, constraints) {
-                    if (constraints.maxWidth > 900) {
-                      return _buildDesktopBentoGrid(context);
-                    } else {
-                      return _buildMobileBentoGrid(context);
-                    }
-                  },
-                ),
-              ],
+                  // Bento Grid Layout for Academic Modules
+                  _buildMobileBentoGrid(context),
+                ],
+              ),
             ),
           ),
         ),
@@ -60,9 +67,9 @@ class AcademicsScreen extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 20, offset: const Offset(0, 4)),
+          BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 20, offset: const Offset(0, 4)),
         ],
-        border: Border.all(color: AppTheme.outlineVariant.withOpacity(0.2)),
+        border: Border.all(color: AppTheme.outlineVariant.withValues(alpha: 0.2)),
       ),
       child: Stack(
         children: [
@@ -73,7 +80,7 @@ class AcademicsScreen extends StatelessWidget {
               width: 200,
               height: 200,
               decoration: BoxDecoration(
-                color: AppTheme.primaryFixed.withOpacity(0.3),
+                color: AppTheme.primaryFixed.withValues(alpha: 0.3),
                 shape: BoxShape.circle,
               ),
             ),
@@ -85,77 +92,65 @@ class AcademicsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Spring 2024 Semester', style: theme.textTheme.displaySmall),
-                      const Text(
-                        'Week 8 of 15 • Midterms Approaching',
-                        style: TextStyle(color: AppTheme.tertiary, fontSize: 14),
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Academic Standing', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis),
+                        const Text(
+                          'Live calculation from your records',
+                          style: TextStyle(color: AppTheme.tertiary, fontSize: 14),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text('53%', style: theme.textTheme.displaySmall?.copyWith(color: AppTheme.primary)),
-                      const Text('COMPLETED', style: TextStyle(fontSize: 10, letterSpacing: 1.2, fontWeight: FontWeight.bold, color: AppTheme.onSurfaceVariant)),
-                    ],
+                  const SizedBox(width: 8),
+                  Consumer<AttendanceProvider>(
+                    builder: (context, att, _) {
+                      int totalPresent = 0;
+                      int totalClasses = 0;
+                      att.stats.forEach((cid, stat) {
+                        totalPresent += stat['present'] ?? 0;
+                        totalClasses += stat['total'] ?? 0;
+                      });
+                      final p = totalClasses == 0 ? 0 : (totalPresent / totalClasses);
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('${(p * 100).toInt()}%', style: theme.textTheme.displaySmall?.copyWith(color: AppTheme.primary)),
+                          const Text('AVG ATTENDANCE', style: TextStyle(fontSize: 10, letterSpacing: 1.2, fontWeight: FontWeight.bold, color: AppTheme.onSurfaceVariant)),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
               const SizedBox(height: 16),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: const LinearProgressIndicator(
-                  value: 0.53,
-                  minHeight: 8,
-                  backgroundColor: AppTheme.surfaceVariant,
-                  valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primary),
-                ),
+              Consumer<AttendanceProvider>(
+                builder: (context, att, _) {
+                  int totalPresent = 0;
+                  int totalClasses = 0;
+                  att.stats.forEach((cid, stat) {
+                    totalPresent += stat['present'] ?? 0;
+                    totalClasses += stat['total'] ?? 0;
+                  });
+                  final p = totalClasses == 0 ? 0.0 : (totalPresent / totalClasses);
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: LinearProgressIndicator(
+                      value: p,
+                      minHeight: 8,
+                      backgroundColor: AppTheme.surfaceVariant,
+                      valueColor: const AlwaysStoppedAnimation<Color>(AppTheme.primary),
+                    ),
+                  );
+                },
               ),
             ],
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildDesktopBentoGrid(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 2,
-              child: _buildCoursesCard(context),
-            ),
-            const SizedBox(width: 24),
-            Expanded(
-              child: Column(
-                children: [
-                  _buildUpNextCard(context),
-                  const SizedBox(height: 24),
-                  _buildAssignmentsMiniCard(context),
-                ],
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 24),
-        Row(
-          children: [
-            Expanded(
-              child: _buildExamsCard(context),
-            ),
-            const SizedBox(width: 24),
-            Expanded(
-              child: _buildAttendanceCard(context),
-            ),
-          ],
-        ),
-      ],
     );
   }
 
@@ -176,59 +171,76 @@ class AcademicsScreen extends StatelessWidget {
   }
 
   Widget _buildCoursesCard(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 20, offset: const Offset(0, 4))],
-        border: Border.all(color: AppTheme.outlineVariant.withOpacity(0.2)),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(color: AppTheme.primaryContainer, shape: BoxShape.circle),
-                    child: const Icon(Icons.book, size: 16, color: AppTheme.primary),
-                  ),
-                  const SizedBox(width: 12),
-                  const Text('Current Courses', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                ],
-              ),
-              const Icon(Icons.arrow_forward, color: AppTheme.onSurfaceVariant),
-            ],
-          ),
-          const SizedBox(height: 20),
-          _buildCourseItem('Data Structures & Algorithms', 'CS 301 • 4 Credits', 'A-'),
-          const SizedBox(height: 12),
-          _buildCourseItem('Modern World History', 'HIST 205 • 3 Credits', 'B+'),
-        ],
+    final courseProvider = Provider.of<CourseProvider>(context);
+    final courses = courseProvider.courses;
+    
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const MyCoursesScreen()));
+      },
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 20, offset: const Offset(0, 4))],
+          border: Border.all(color: AppTheme.outlineVariant.withValues(alpha: 0.2)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: const BoxDecoration(color: AppTheme.primaryContainer, shape: BoxShape.circle),
+                      child: const Icon(Icons.book, size: 16, color: AppTheme.primary),
+                    ),
+                    const SizedBox(width: 12),
+                    const Text('Current Courses', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                const Icon(Icons.arrow_forward, color: AppTheme.onSurfaceVariant),
+              ],
+            ),
+            const SizedBox(height: 20),
+            if (courseProvider.isLoading)
+              const Center(child: CircularProgressIndicator())
+            else if (courses.isEmpty)
+              const Center(child: Padding(padding: EdgeInsets.all(16.0), child: Text('No courses added yet', style: TextStyle(color: AppTheme.onSurfaceVariant))))
+            else
+              ...courses.take(3).map((c) => Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: _buildCourseItem(c.name, c.code, '${c.creditHours} CR'),
+              )),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildCourseItem(String name, String details, String grade) {
+  Widget _buildCourseItem(String name, String code, String grade) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: AppTheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppTheme.outlineVariant.withOpacity(0.1)),
+        border: Border.all(color: AppTheme.outlineVariant.withValues(alpha: 0.1)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-              Text(details, style: const TextStyle(fontSize: 12, color: AppTheme.onSurfaceVariant)),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name, style: const TextStyle(fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
+                Text(code, style: const TextStyle(fontSize: 12, color: AppTheme.onSurfaceVariant)),
+              ],
+            ),
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -241,6 +253,29 @@ class AcademicsScreen extends StatelessWidget {
   }
 
   Widget _buildUpNextCard(BuildContext context) {
+    final scheduleProvider = Provider.of<ScheduleProvider>(context);
+    final today = DateFormat('EEEE').format(DateTime.now());
+    final todaysClasses = scheduleProvider.getSchedulesForDay(today);
+    
+    // Find next class today
+    Schedule? nextClass;
+    final nowTime = DateTime.now();
+    final nowMinutes = nowTime.hour * 60 + nowTime.minute;
+
+    for (var s in todaysClasses) {
+      final startMinutes = s.startTime.hour * 60 + s.startTime.minute;
+      if (startMinutes > nowMinutes) {
+        if (nextClass == null) {
+          nextClass = s;
+        } else {
+          final nextStartMinutes = nextClass.startTime.hour * 60 + nextClass.startTime.minute;
+          if (startMinutes < nextStartMinutes) {
+            nextClass = s;
+          }
+        }
+      }
+    }
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -253,29 +288,41 @@ class AcademicsScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppTheme.primary,
           borderRadius: BorderRadius.circular(16),
-          boxShadow: [BoxShadow(color: AppTheme.primary.withOpacity(0.2), blurRadius: 20, offset: const Offset(0, 4))],
+          boxShadow: [BoxShadow(color: AppTheme.primary.withValues(alpha: 0.2), blurRadius: 20, offset: const Offset(0, 4))],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Up Next', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-                Icon(Icons.calendar_month, color: Colors.white),
+                const Text('Up Next', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const AddScheduleScreen()));
+                  },
+                  icon: const Icon(Icons.add_circle_outline, color: Colors.white),
+                  tooltip: 'Schedule Class',
+                ),
               ],
             ),
-            const SizedBox(height: 32),
-            const Text('TODAY, 2:00 PM', style: TextStyle(color: AppTheme.primaryFixed, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
-            const Text('Software Engineering Lab', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            const Row(
-              children: [
-                Icon(Icons.location_on, size: 16, color: AppTheme.primaryFixed),
-                SizedBox(width: 4),
-                Text('Room 402, Engineering Bldg', style: TextStyle(color: AppTheme.primaryFixed, fontSize: 14)),
-              ],
-            ),
+            const SizedBox(height: 16),
+            if (nextClass != null) ...[
+              Text('TODAY, ${nextClass.startTime.format(context)}', style: const TextStyle(color: AppTheme.primaryFixed, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
+              Text(nextClass.courseName ?? 'Untitled Course', style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  const Icon(Icons.location_on, size: 16, color: AppTheme.primaryFixed),
+                  const SizedBox(width: 4),
+                  Text(nextClass.room ?? 'TBA', style: const TextStyle(color: AppTheme.primaryFixed, fontSize: 14)),
+                ],
+              ),
+            ] else ...[
+              const Text('No more classes today', style: TextStyle(color: Colors.white70, fontSize: 16)),
+              const SizedBox(height: 8),
+              const Text('Take some time to study!', style: TextStyle(color: AppTheme.primaryFixed, fontSize: 12)),
+            ],
           ],
         ),
       ),
@@ -284,139 +331,177 @@ class AcademicsScreen extends StatelessWidget {
 
   Widget _buildAssignmentsMiniCard(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: AppTheme.secondaryContainer,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: AppTheme.secondaryContainer.withOpacity(0.15), blurRadius: 20, offset: const Offset(0, 4))],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Assignments', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-              Icon(Icons.assignment, color: AppTheme.secondary),
-            ],
-          ),
-          const SizedBox(height: 24),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text('3', style: theme.textTheme.displayLarge?.copyWith(color: AppTheme.secondary, height: 1)),
-              const SizedBox(width: 8),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 8.0),
-                child: Text('Due this week', style: TextStyle(color: Colors.white70, fontSize: 14)),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          const Text('View all tasks →', style: TextStyle(color: AppTheme.secondary, fontWeight: FontWeight.bold, fontSize: 12)),
-        ],
+    final assignments = Provider.of<AssignmentProvider>(context).assignments;
+    final pendingCount = assignments.where((a) => a.status == AssignmentStatus.pending).length;
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const AssignmentsScreen()));
+      },
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: AppTheme.secondaryContainer,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [BoxShadow(color: AppTheme.secondaryContainer.withValues(alpha: 0.15), blurRadius: 20, offset: const Offset(0, 4))],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Assignments', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                Icon(Icons.assignment, color: AppTheme.secondary),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text('$pendingCount', style: theme.textTheme.displayLarge?.copyWith(color: AppTheme.secondary, height: 1)),
+                const SizedBox(width: 8),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 8.0),
+                  child: Text('Pending Tasks', style: TextStyle(color: Colors.white70, fontSize: 14)),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            const Text('View all tasks →', style: TextStyle(color: AppTheme.secondary, fontWeight: FontWeight.bold, fontSize: 12)),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildExamsCard(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 20, offset: const Offset(0, 4))],
-        border: Border.all(color: AppTheme.error.withOpacity(0.2)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Exams', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Icon(Icons.quiz, color: AppTheme.error),
+    final exams = Provider.of<ExamProvider>(context).exams;
+    final upcomingExams = exams.where((e) => e.dateTime.isAfter(DateTime.now())).toList();
+    upcomingExams.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+    
+    Exam? nextExam = upcomingExams.isNotEmpty ? upcomingExams.first : null;
+    int diff = nextExam != null ? nextExam.dateTime.difference(DateTime.now()).inDays : 0;
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const ExamsScreen()));
+      },
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 20, offset: const Offset(0, 4))],
+          border: Border.all(color: AppTheme.error.withValues(alpha: 0.2)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Exams', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                Icon(Icons.quiz, color: AppTheme.error),
+              ],
+            ),
+            const SizedBox(height: 24),
+            if (nextExam != null) ...[
+              const Text('Next exam in', style: TextStyle(color: AppTheme.onSurfaceVariant, fontSize: 14)),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Text('$diff', style: theme.textTheme.displayLarge?.copyWith(color: AppTheme.error, height: 1)),
+                  const SizedBox(width: 4),
+                  const Text('days', style: TextStyle(color: AppTheme.error, fontSize: 16)),
+                ],
+              ),
+              const SizedBox(height: 16),
+              const Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(child: Text(nextExam.title, style: const TextStyle(fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis)),
+                  Text(DateFormat('MMM d').format(nextExam.dateTime), style: const TextStyle(color: AppTheme.onSurfaceVariant, fontSize: 12)),
+                ],
+              ),
+            ] else ...[
+              const Center(child: Padding(padding: EdgeInsets.symmetric(vertical: 32.0), child: Text('No upcoming exams', style: TextStyle(color: AppTheme.onSurfaceVariant)))),
             ],
-          ),
-          const SizedBox(height: 24),
-          const Text('Next exam in', style: TextStyle(color: AppTheme.onSurfaceVariant, fontSize: 14)),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Text('12', style: theme.textTheme.displayLarge?.copyWith(color: AppTheme.error, height: 1)),
-              const SizedBox(width: 4),
-              const Text('days', style: TextStyle(color: AppTheme.error, fontSize: 16)),
-            ],
-          ),
-          const SizedBox(height: 16),
-          const Divider(),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('CS 301 Midterm', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('Oct 24', style: TextStyle(color: AppTheme.onSurfaceVariant, fontSize: 12)),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildAttendanceCard(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: const Color(0xFFD6E4F9).withOpacity(0.3),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD6E4F9)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Row(
-                children: [
-                  Icon(Icons.fact_check, size: 16, color: AppTheme.tertiary),
-                  SizedBox(width: 8),
-                  Text('Attendance', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                ],
-              ),
-              const SizedBox(height: 8),
-              const Text('Overall average', style: TextStyle(color: AppTheme.onSurfaceVariant, fontSize: 14)),
-            ],
-          ),
-          SizedBox(
-            width: 64,
-            height: 64,
-            child: Stack(
+    final attProvider = Provider.of<AttendanceProvider>(context);
+    int totalPresent = 0;
+    int totalClasses = 0;
+    attProvider.stats.forEach((cid, stat) {
+      totalPresent += stat['present'] ?? 0;
+      totalClasses += stat['total'] ?? 0;
+    });
+    final p = totalClasses == 0 ? 0.0 : (totalPresent / totalClasses);
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const AttendanceScreen()));
+      },
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: const Color(0xFFD6E4F9).withValues(alpha: 0.3),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFFD6E4F9)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Center(
-                  child: SizedBox(
-                    width: 64,
-                    height: 64,
-                    child: CircularProgressIndicator(
-                      value: 0.92,
-                      strokeWidth: 6,
-                      backgroundColor: AppTheme.surfaceVariant,
-                      valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primary),
-                    ),
-                  ),
+                const Row(
+                  children: [
+                    Icon(Icons.fact_check, size: 16, color: AppTheme.tertiary),
+                    SizedBox(width: 8),
+                    Text('Attendance', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  ],
                 ),
-                const Center(
-                  child: Text(
-                    '92%',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppTheme.primary),
-                  ),
-                ),
+                const SizedBox(height: 8),
+                const Text('Overall average', style: TextStyle(color: AppTheme.onSurfaceVariant, fontSize: 14)),
               ],
             ),
-          ),
-        ],
+            SizedBox(
+              width: 64,
+              height: 64,
+              child: Stack(
+                children: [
+                  Center(
+                    child: SizedBox(
+                      width: 64,
+                      height: 64,
+                      child: CircularProgressIndicator(
+                        value: p,
+                        strokeWidth: 6,
+                        backgroundColor: AppTheme.surfaceVariant,
+                        valueColor: const AlwaysStoppedAnimation<Color>(AppTheme.primary),
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      '${(p * 100).toInt()}%',
+                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppTheme.primary),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

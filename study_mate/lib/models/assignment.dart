@@ -26,14 +26,20 @@ class Assignment {
 
   factory Assignment.fromJson(Map<String, dynamic> json) {
     return Assignment(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      courseId: json['course_id'],
-      dueDate: DateTime.parse(json['due_date']),
-      status: AssignmentStatus.values.firstWhere((e) => e.name == json['status'], orElse: () => AssignmentStatus.pending),
-      priority: AssignmentPriority.values.firstWhere((e) => e.name == json['priority'], orElse: () => AssignmentPriority.medium),
-      courseName: json['sm_courses']?['name'],
+      id: json['id']?.toString() ?? '',
+      title: json['title']?.toString() ?? 'Untitled',
+      description: json['description']?.toString(),
+      courseId: json['course_id']?.toString() ?? '',
+      dueDate: DateTime.parse(json['due_date'] ?? DateTime.now().toIso8601String()),
+      status: AssignmentStatus.values.firstWhere(
+        (e) => e.name == json['status'], 
+        orElse: () => AssignmentStatus.pending
+      ),
+      priority: AssignmentPriority.values.firstWhere(
+        (e) => e.name == json['priority'], 
+        orElse: () => AssignmentPriority.medium
+      ),
+      courseName: json['sm_courses']?['name']?.toString(),
     );
   }
 
