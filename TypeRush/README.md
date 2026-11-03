@@ -11,4 +11,6 @@ State: S object is rebuilt in start(); stop() clears the single setInterval ("ti
 
 ## Demo
 
-[Demo](vids/typerush.mp4)
+![TypeRush demo](vids/typerush.gif)
+
+[Download the video](vids/typerush.mp4)
