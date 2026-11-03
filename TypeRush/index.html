@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TypeRush - Typing Challenge</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HOME SCREEN (one card per mode) -->
+  <section id="menu">
+    <h1>⚡ TypeRush</h1>
+    <p class="sub">Typing Challenge Game</p>
+    <div class="cards">
+      <div class="card">
+        <h2>🫧 Bubbles</h2>
+        <p>Letters float upward inside bubbles. Press the matching key to pop them before they reach the top!</p>
+        <small>+10 per pop · −5 wrong key · game over at the miss limit</small>
+        <label>Difficulty
+          <select id="diffA"><option>Easy</option><option selected>Medium</option><option>Hard</option></select>
+        </label>
+        <button class="main" onclick="start('bubbles')">Start</button>
+      </div>
+      <div class="card">
+        <h2>🧲 KeyMagnet</h2>
+        <p>A target key lights up on the keyboard. Press it as fast as you can before time runs out.</p>
+        <small>+10 per hit (+5 if under 1 s) · −2 wrong key · time limit</small>
+        <label>Difficulty
+          <select id="diffB"><option>Easy</option><option selected>Medium</option><option>Hard</option></select>
+        </label>
+        <label>Key set
+          <select id="setB">
+            <option value="home">Home row (A S D F J K L)</option>
+            <option value="top">Top row</option>
+            <option value="bottom">Bottom row</option>
+            <option value="all">All letters</option>
+          </select>
+        </label>
+        <button class="main" onclick="start('magnet')">Start</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAME SCREEN -->
+  <section id="game" hidden>
+    <div id="status"></div>
+    <div id="stage">
+      <div id="arena"></div>
+      <div id="magnet" hidden>
+        <p>Press this key</p>
+        <div id="target"></div>
+        <div id="barWrap"><div id="bar"></div></div>
+      </div>
+    </div>
+    <div id="kb"></div>
+    <div class="ctrl">
+      <button onclick="start()">⟳ Restart</button>
+      <button onclick="reset()">⌂ Reset</button>
+    </div>
+  </section>
+
+  <!-- RESULTS SCREEN -->
+  <section id="results" hidden>
+    <h2 id="resTitle"></h2>
+    <div id="resStats" class="stats"></div>
+    <div class="ctrl">
+      <button class="main" onclick="start()">Play Again</button>
+      <button onclick="reset()">Home</button>
+    </div>
+  </section>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
