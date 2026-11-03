@@ -1,3 +1,9 @@
+# TypeRush
+
+<video src="https://raw.githubusercontent.com/MuneebAhmad-crypto/muneeb_f/main/TypeRush/vids/typerush.mp4" width="960" controls playsinline></video>
+
+[Watch the 1080p demo](vids/typerush.mp4)
+
 TypeRush - Typing Challenge (CSC336 Lab Mid)
 Run: open index.html in any browser (no install, no libraries).
 Files: index.html (screens) | style.css (dark neon theme) | script.js (all logic)
@@ -8,7 +14,3 @@ Difficulty: Bubbles -> speed, spawn rate, max bubbles, miss limit. KeyMagnet -> 
 Key set (KeyMagnet) changes which keys appear as targets.
 End: Bubbles = miss limit reached. KeyMagnet = time runs out.
 State: S object is rebuilt in start(); stop() clears the single setInterval ("timer").
-
-## Demo
-
-[Demo](vids/typerush.mp4)
